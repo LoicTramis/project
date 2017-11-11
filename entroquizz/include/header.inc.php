@@ -30,7 +30,7 @@
 					<ul>
 						<li>Temps limit&eacute;</li>
 						<li>Mort subite</li>
-						<li>&Eacute;quilibre</li>
+						<li>D&eacute;s&eacute;quilibre</li>
 						<li>Expansion (&Agrave; venir)</li>
 					</ul>
 				</li>
