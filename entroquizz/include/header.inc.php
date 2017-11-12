@@ -4,11 +4,11 @@
     <head>
     	<title>Entroquizz - Version Beta</title>
     	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    	<link href="./css/style.css" rel="stylesheet" type="text/css">
+    	<link href="../css/style.css" rel="stylesheet" type="text/css">
 	</head>	
 	<body>
 		<header>
-			<h1>Entroquizz</h1>
+			<h1><a href="../home/">Entroquizz</a></h1>
 			<div>Logo</div>
 			<div>header nav</div>
 		</header>
@@ -17,16 +17,13 @@
 				<li>
 					<a href="../solo/">Solo</a>
         			<ul>
-        				<li>Theme 1</li>
-        				<li>Theme 1</li>
-        				<li>Theme 1</li>
-        				<li>Theme 1</li>
-        				<li>Theme 1</li>
-        				<li>Theme 1</li>
+        				<li>Simple</li>
+        				<li>Al&eacute;atoire</li>
+        				<li>Chronom&eacute;tr&eacute;e</li>
         			</ul>
 				</li>
 				<li>
-					Multi-joueurs
+					<a href="../multi/">Multi-joueur</a>
 					<ul>
 						<li>Temps limit&eacute;</li>
 						<li>Mort subite</li>
