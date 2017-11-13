@@ -32,6 +32,7 @@
 					</ul>
 				</li>
 				<li>Mon compte</li>
+				<li><a href="../admin/">G&eacute;rer le site</a></li>
 				<li>Statistiques</li>
 				<li>Historique</li>
 				<li>Param&egrave;tres</li>

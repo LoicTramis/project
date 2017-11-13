@@ -27,7 +27,7 @@
     		<div class="mode death">
     			<a href="../mutli/suddendeath.php">Mort subite</a>
     		</div>	
-    		<div class="mode">
+    		<div class="mode unbalanced">
     			<a href="../mutli/unbalance.php">D&eacute;s&eacute;quilibre</a>
     		</div>		
     		<div class="mode">
