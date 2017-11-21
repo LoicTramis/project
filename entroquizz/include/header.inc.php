@@ -1,3 +1,17 @@
+<?php
+    try {
+    $db = new PDO("pgsql:host=localhost port=5432 dbname=postgres user=postgres password=pass");
+    
+    if (condition) {
+        ;
+    }
+    $sql = file_get_contents('../sql/tables_creation.sql');
+    $qr = $db->exec($sql);
+    
+    } catch (PDOException $e) {
+        echo 'Connexion échouée : ' . $e->getMessage();
+    }
+?>
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -14,7 +28,7 @@
 		</header>
 		<nav>
 			<ul>
-				<li>
+				<li>	
 					<a href="../solo/">Solo</a>
         			<ul>
         				<li>Simple</li>

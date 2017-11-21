@@ -41,6 +41,7 @@ nav ul li {
 
 section {
 	background: transparent;
+	margin-left: 100px;
 	position: absolute;
 	right:0;
 	top: 60px;
