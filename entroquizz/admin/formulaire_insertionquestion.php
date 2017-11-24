@@ -1,33 +1,32 @@
 <?php
     require_once '../include/header.inc.php';
-    
     function Formulaire($req,$var){
         include('../include/postgres.conf.inc.php');
-        $dbconn = pg_connect($confi);
+        $connection = pg_connect($confi);
         $stid = pg_query($req);
         $res="<select id ='" .$var."' name='".$var."'>\n";
         $res.="<option value='-1'>Choisissez...</option>\n";
         while ($row = pg_fetch_array($stid)){
             $res.="<option value='".$row[0]."'>".$row[1]."</option>\n";
         }
-        $res .= "</select>\n";
+        $res.="</select>\n";
         pg_free_result($stid);
-        pg_close($dbconn);
+        pg_close($connection);
         return $res;
     }
 
-?>
-<section>        
+?>       
+<section> 
         <form action="scriptinsertquestion.php" method="get">
             <fieldset>
                 <legend>Int√©grez votre question √† nos quizz:</legend>
-                <p><label for="difficulte">Difficulte du quizz:</label>
+                <label for="difficulte">Difficulte du quizz:</label>
                 <select name="difficulte" id="difficulte" required>
                     <option value="-1">Choisissez...</option>
                     <option value="facile">Facile</option>
                     <option value="moyen">Moyen</option>
                     <option value="difficile">Difficile</option>
-                </select></p>
+                </select>
 
                 <p><label>Choisissez un th√®me :</label>
                     <!-- recuperation des th√®mes -->
@@ -62,23 +61,26 @@
                     
                 </div>
 
-                <!-- -----------------Formulaire Question Choix multiple------- -->
+                <!-- Formulaire Question Choix multiple -->
                 <div id="divCM" style="display: none;">          
-                    <label for="choice1">Choix de r√©ponse A:</label>
-                    <input type="text" id="choice1" name="choice1" value=""><br>
-                    <label for="choice2">Choix de r√©ponse B:</label>
-                    <input type="text" id="choice2" name="choice2" value=""><br>
-                    <label for="choice3">Choix de r√©ponse C:</label>
-                    <input type="text" id="choice3" name="choice3" value=""><br>
-                    <label for="choice4">Choix de r√©ponse D:</label>
-                    <input type="text" id="choice4" name="choice4" value=""><br>
+                    <label for="choice1">Choix de rÈponse A:</label>
+                    <input type="text" id="choice1" name="choice1" placeholder="choix 1"><br>
+                    <label for="choice2">Choix de rÈponse B:</label>
+                    <input type="text" id="choice2" name="choice2" placeholder="choix 2"><br>
+                    <label for="choice3">Choix de rÈponse C:</label>
+                    <input type="text" id="choice3" name="choice3" placeholder="choix 3"><br>
+                    <label for="choice4">Choix de rÈponse D:</label>
+                    <input type="text" id="choice4" name="choice4" placeholder="choix 4"><br>
                     <br>
-                    <p>Cochez les r√©ponses correctes:</p>
-                    <input type="checkbox" id="rep1" name="answer1" value=""><label for="rep1"> R√©ponse A</label><br>
-                    <input type="checkbox" id="rep2" name="answer2" value=""><label for="rep2"> R√©ponse B</label><br>
-                    <input type="checkbox" id="rep3" name="answer3" value=""><label for="rep3"> R√©ponse C</label><br>
-                    <input type="checkbox" id="rep4" name="answer4" value=""><label for="rep4"> R√©ponse D</label><br>   
-                </div>
+                    <p>Cochez les rÈponses correctes:</p>
+                    <input type="checkbox" id="rep1" name="answer1" value="answer1" onclick="javascript:boxCheck();"><label for="rep1">RÈponse A</label><br>
+
+                    <input type="checkbox" id="rep2" name="answer2" value="answer2" onclick="javascript:boxCheck();"><label for="rep2">RÈponse B</label><br>
+
+                    <input type="checkbox" id="rep3" name="answer3" value="answer3" onclick="javascript:boxCheck();"><label for="rep3">RÈponse C</label><br>
+
+                    <input type="checkbox" id="rep4" name="answer4" value="answer4" onclick="javascript:boxCheck();"><label for="rep4">RÈponse D</label><br>   
+                </div>  
                 <p><input type="submit" value="Valider"></p>
             </fieldset>
         </form>

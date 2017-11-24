@@ -1,17 +1,6 @@
-<?php
-    try {
-    $db = new PDO("pgsql:host=localhost port=5432 dbname=postgres user=postgres password=pass");
-    
-    if (condition) {
-        ;
-    }
-    $sql = file_get_contents('../sql/tables_creation.sql');
-    $qr = $db->exec($sql);
-    
-    } catch (PDOException $e) {
-        echo 'Connexion échouée : ' . $e->getMessage();
-    }
+<?php 
 ?>
+
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -19,12 +8,36 @@
     	<title>Entroquizz - Version Beta</title>
     	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     	<link href="../css/style.css" rel="stylesheet" type="text/css">
+    	<link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
+    	<script type="text/javascript" src="../js/script.js"></script>
 	</head>	
 	<body>
 		<header>
-			<h1><a href="../home/">Entroquizz</a></h1>
-			<div>Logo</div>
-			<div>header nav</div>
+			<h1><a href="../home/" class="header-logo"></a></h1>
+			<div class="right">
+				<a href="#"><i class="fa fa-power-off" aria-hidden="true"></i><?php echo "Se connecter";?></a>
+			</div>
+			<div id="connect">
+				<form method="post" action="./index.php">
+    				<fieldset class="signin">
+    				<legend >Connexion</legend>
+    					<label for="login" > Identifiant : </label>
+    					<input name ="login" type="text" id ="login">
+    
+    					<label for="password_signin">Mot de passe : </label>
+    					<input name ="password" type ="password" id ="password_signin">
+    
+    					<p class="switch">Pas encore de compte ? <span>Inscrivez-vous</span></p>
+    
+    					<div class="reset-button">
+    						<input type="reset" value="Annuler">
+    					</div>
+    					<div class="signin-button">
+    						<input type="submit" value="Se connecter">
+    					</div>
+    				</fieldset>
+    			</form>
+    		</div>
 		</header>
 		<nav>
 			<ul>
@@ -45,7 +58,7 @@
 						<li>Expansion (&Agrave; venir)</li>
 					</ul>
 				</li>
-				<li>Mon compte</li>
+				<li><a href="../account/">Mon compte</a></li>
 				<li><a href="../admin/">G&eacute;rer le site</a></li>
 				<li>Statistiques</li>
 				<li>Historique</li>

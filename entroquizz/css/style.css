@@ -1,3 +1,8 @@
+@font-face {
+	font-family: 'font-awesome';
+	src: url("fonts/fontawesome-webfont.ttf");
+}
+
 body {
 	background-color: #e6e6e6;
 }
@@ -6,7 +11,7 @@ header {
 	background-color: #262626;
 	border-bot: 1px solid;
 	border-bot-color: grey;
-	display: block;
+	display: inline-block;
 	color: white;
 	left:0;
 	position: fixed;
@@ -15,7 +20,21 @@ header {
 	height: 60px;
 	z-index: 1;
 }
-
+header h1 {
+	margin: 0;
+	padding: 0;
+	width: 50%;
+}
+header a {
+	position: relative;
+	display: block;
+	height: 50px;
+}
+.header-logo {
+	background-image: url("../img/logo_main.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
 nav {
 	background-color: #f2f2f2;
 	border-right: 1px solid;
@@ -41,10 +60,10 @@ nav ul li {
 
 section {
 	background: transparent;
-	margin-left: 100px;
+	margin-left: 230px;
 	position: absolute;
 	right:0;
-	top: 60px;
+	top: 100px;
 	width: 90%;
 }
 
@@ -52,7 +71,9 @@ article {
 	position: relative;
 	width: 100%;
 }
-
+i {
+	padding: 0px 5px;
+}
 div.mode {
 	display: inline-block;
 	height: 300px;
@@ -89,14 +110,33 @@ div.mode a:hover {
 	position: relative;
 	width: 300px;
 }
-
+a.icon {
+	text-decoration: none;
+	color: black;
+}
+.error:hover {
+	color: red;
+}
+.right {
+	float: right;
+}
+.warning:hover {
+	color: orange;
+}
 .position-center {
 	position: relative;
 	left: 50%;
 	transform: translate(-50%);
 	width: 100%;
 }
-
 .text-center {
 	text-align: center;
+}
+
+#connect {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	visibility: visible;
 }
