@@ -9,53 +9,47 @@
     	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
     	<link href="../css/style.css" rel="stylesheet" type="text/css">
     	<link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
-    	<script type="text/javascript" src="../js/script.js"></script>
+    	<link href="../css/ionicons.css" rel="stylesheet" type="text/css">
+    	<script src="../js/jquery-3.2.1.js" type="text/javascript"></script>
+    	<script src="../js/script.js" type="text/javascript"></script>
+    	<script src='https://www.google.com/recaptcha/api.js'></script> <!-- reCAPTCHA -->
 	</head>	
 	<body>
+        <!--  -->
+		<div id="frontground" style="display: none;"></div>
 		<header>
-			<h1><a href="../home/" class="header-logo"></a></h1>
-			<div class="right">
-				<a href="#"><i class="fa fa-power-off" aria-hidden="true"></i><?php echo "Se connecter";?></a>
-			</div>
-			<div id="connect">
-				<form method="post" action="./index.php">
-    				<fieldset class="signin">
-    				<legend >Connexion</legend>
-    					<label for="login" > Identifiant : </label>
-    					<input name ="login" type="text" id ="login">
-    
-    					<label for="password_signin">Mot de passe : </label>
-    					<input name ="password" type ="password" id ="password_signin">
-    
-    					<p class="switch">Pas encore de compte ? <span>Inscrivez-vous</span></p>
-    
-    					<div class="reset-button">
-    						<input type="reset" value="Annuler">
-    					</div>
-    					<div class="signin-button">
-    						<input type="submit" value="Se connecter">
-    					</div>
-    				</fieldset>
-    			</form>
-    		</div>
+			<h1 class="hidden">Entroquizz</h1>
+			<ul>
+				<li><a href="../home/" class="header-logo"></a></li>
+			<?php 
+			    // user is not logged in
+			    if (true) {
+    				echo "<li onclick=\"popup_login()\" id=\"signin\"><i class=\"fa fa-power-off\"></i>Se connecter</li>";	
+    			// user is logged in
+			    } else {
+			        
+			    }
+			?>
+			</ul>
+
 		</header>
 		<nav>
 			<ul>
 				<li>	
 					<a href="../solo/">Solo</a>
         			<ul>
-        				<li>Simple</li>
-        				<li>Al&eacute;atoire</li>
-        				<li>Chronom&eacute;tr&eacute;e</li>
+        				<li><a href="#">Simple</a></li>
+        				<li><a href="#">Al&eacute;atoire</a></li>
+        				<li><a href="#">Chronom&eacute;tr&eacute;e</a></li>
         			</ul>
 				</li>
 				<li>
 					<a href="../multi/">Multi-joueur</a>
 					<ul>
-						<li>Temps limit&eacute;</li>
-						<li>Mort subite</li>
-						<li>D&eacute;s&eacute;quilibre</li>
-						<li>Expansion (&Agrave; venir)</li>
+						<li><a href="#">Temps limit&eacute;</a></li>
+						<li><a href="#">Mort subite</a></li>
+						<li><a href="#">D&eacute;s&eacute;quilibre</a></li>
+						<li><a href="#">Expansion (&Agrave; venir)</a></li>
 					</ul>
 				</li>
 				<li><a href="../account/">Mon compte</a></li>
@@ -66,3 +60,68 @@
 				<li>&Agrave; propos</li>
 			</ul>
 		</nav>
+		<div id="connect" style="display: none;">
+			<form method="post" action="./index.php" class="signin">
+				<fieldset>
+				<legend >Connexion</legend>
+					<div class="i-block">
+						<label for="login" > Identifiant :</label>
+						<input name ="c_login" type="text" id ="login" placeholder="Pseudo" required>
+						<i class="fa fa-user-o"></i>					
+					</div>
+					
+					<div class="i-block">
+						<label for="password_signin">Mot de passe :</label>
+						<input name ="c_password" type ="password" id ="password_signin" placeholder="Mot de passe" required>
+						<i class="fa fa-lock"></i>
+					</div>
+					
+					<div class="buttons">
+						<input type="submit" value="&#xf121;" title="Se connecter">
+					</div>
+				</fieldset>
+			</form>
+			<p class="switch"><span>Inscrivez-vous</span></p>
+		</div>
+		<div id="register" style="display: none;">
+		<form method="post" action="./index.php">
+			<fieldset class="signup">
+				<legend>Inscription</legend>
+					<div class="i-block">
+						<label for="username" > Identifiant : </label>
+						<input name="r_username" type="text" id="username" placeholder="Pseudonyme" required>
+						<i class="fa fa-user-o"></i>					
+					</div>
+					
+					<div class="i-block">
+						<label for="email" > E-mail : </label>
+						<input name="r_email" type="email" id="email" placeholder="E-mail" required>	
+						<i class="fa fa-envelope-o"></i>									
+					</div>
+
+					<div class="i-block">
+						<label for="password">Mot de passe : </label>
+						<input name ="r_password" type="password" id="password" placeholder="Mot de passe" required>
+						<i class="fa fa-lock"></i>					
+					</div>
+
+					<div class="i-block">
+						<label for="repassword">Mot de passe : </label>
+						<input name="r_repassword" type="password" id="repassword" placeholder="Retaper le mot de passe" required>
+						<i class="fa fa-unlock-alt"></i>					
+					</div>
+					
+                    <!-- For loictramis.esy.es -->
+<!-- 					<div class="g-recaptcha" data-sitekey="6LfwnToUAAAAAKM27KltUD-fXUgFjNxPbG6s2vk8"></div> -->
+                    <!-- For college server -->
+					<div class="g-recaptcha" data-sitekey="6LeEnjoUAAAAAGRQtzVI5Fsdjf_mwYkRXu1ja13Y"></div>
+					
+					<p class="message"></p>
+					
+					<div class="buttons">
+						<input type="submit" value="&#xf121;" title="S'enregistrer">
+					</div>
+				</fieldset>
+			</form>
+			<p class="switch"><span>Connectez-vous</span></p>
+		</div>

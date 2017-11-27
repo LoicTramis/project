@@ -1,17 +1,36 @@
 @font-face {
+	font-family: Comfortaa;
+	src: url("../fonts/Comfortaa-Regular.ttf") format('truetype'), /* Firefox, Safari, iOS, Mobile */
+		 url("../fonts/Comfortaa-Regular.woff") format('woff'), /* Modern browser */
+		 url("../fonts/Comfortaa-Regular.eot"); /* IE 9 */
+}
+@font-face {
+	font-family: Comfortaa;
+	font-weight: bold;
+	src: url("../fonts/Comfortaa-Bold.ttf") format('truetype'),
+		 url("../fonts/Comfortaa-Bold.woff") format('woff');
+}
+@font-face {
 	font-family: 'font-awesome';
 	src: url("fonts/fontawesome-webfont.ttf");
 }
 
 body {
 	background-color: #e6e6e6;
+	font-family: Comfortaa;
 }
-
+#frontground {
+	background-color: black;
+	height: 100%;
+	left: 0;
+	opacity: 0.7;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 2;
+}
 header {
 	background-color: #262626;
-	border-bot: 1px solid;
-	border-bot-color: grey;
-	display: inline-block;
 	color: white;
 	left:0;
 	position: fixed;
@@ -35,11 +54,30 @@ header a {
 	background-repeat: no-repeat;
 	background-size: contain;
 }
+header ul {
+	margin: 0;
+	padding: 0;
+}
+header ul li {
+    cursor: pointer;
+    list-style-type: none;
+    padding: 10px 5px;
+}
+header ul li:first-child {
+	float: left;
+    width: 200px;
+}
+header ul li:last-child {
+	float: right;
+}
+header ul li:hover {
+	color: #3385ff;
+}
 nav {
 	background-color: #f2f2f2;
 	border-right: 1px solid;
 	border-right-color: #e6e6e6;
-	box-shadow: 3px 0px 10px #666;
+	box-shadow: 2px 0px 2px #a6a6a6;
 	bot:0;
 	height: 100%;
 	color: black;
@@ -54,10 +92,56 @@ nav ul {
     padding: 0;
 }
 nav ul li {
-	margin: 20px;
+	margin: 15px 10px;
 	text-align: center;
 }
-
+nav ul li > ul li {
+	padding: 0;
+}
+nav ul li > ul li a {
+	background-color: #ddd;
+	border-radius: 3px;
+	box-shadow: 1px 1px 10px 3px #808080 inset;
+	color: #404040;
+	display: block;
+	height: 100%;
+	padding: 10px 2px;	
+	text-decoration: none;
+	width: 100%;
+}
+nav ul li > ul li a:hover {
+	color: white;
+}
+/* first list*/
+nav ul li:nth-child(1) > ul li:nth-child(1) a:hover {
+	background-color: blue;
+	box-shadow: 1px 1px 10px 3px #808080;
+}
+nav ul li:nth-child(1) > ul li:nth-child(2) a:hover {
+	background-color: #ff6600;
+	box-shadow: 1px 1px 10px 3px #993d00;
+}
+nav ul li:nth-child(1) > ul li:nth-child(3) a:hover {
+	background-color: #8000ff;
+	box-shadow: 1px 1px 10px 3px #4d0099;
+}
+/* second list */
+nav ul li:nth-child(2) > ul li:nth-child(1) a:hover {
+	background-color: blue;
+	box-shadow: 1px 1px 10px 3px #808080;
+}
+nav ul li:nth-child(2) > ul li:nth-child(2) a:hover {
+	background-color: #ff6600;
+	box-shadow: 1px 1px 10px 3px #993d00;
+}
+nav ul li:nth-child(2) > ul li:nth-child(3) a:hover {
+	background-color: #8000ff;
+	box-shadow: 1px 1px 10px 3px #4d0099;
+}
+nav ul li:nth-child(2) > ul li:nth-child(4) a:hover {
+	background-color: blue;
+	box-shadow: 1px 1px 10px 3px #808080;
+}
 section {
 	background: transparent;
 	margin-left: 230px;
@@ -105,6 +189,9 @@ div.mode a:hover {
 	background-position: center;
 }
 
+.hidden {
+	display: none;
+}
 .theme {
 	display: inline-block;
 	position: relative;
@@ -114,13 +201,10 @@ a.icon {
 	text-decoration: none;
 	color: black;
 }
-.error:hover {
+.error {
 	color: red;
 }
-.right {
-	float: right;
-}
-.warning:hover {
+.warning {
 	color: orange;
 }
 .position-center {
@@ -133,10 +217,93 @@ a.icon {
 	text-align: center;
 }
 
-#connect {
+#connect,
+#register {
+	left: 80%;
+	opacity: 0;
 	position: absolute;
 	top: 50%;
-	left: 50%;
 	transform: translate(-50%, -50%);
-	visibility: visible;
+	width: 400px;
+	z-index: 3;
+}
+#connect form,
+#register form {
+	background-color: white;
+	border-radius: 5px;
+}
+#connect fieldset,
+#register fieldset {
+	border: none;
+	padding: 40px 20px
+}
+#connect legend,
+#register legend,
+#connect label,
+#register label {
+	display: none;
+}
+#connect .i-block,
+#register .i-block {
+	display: flex;
+	margin: 20px 0px;
+}
+#connect input,
+#register input {
+	background-color: transparent;
+	border: 1px solid #ddd;
+	border-right: none;
+	border-radius: 4px 0 0 4px;
+	font-family: Comfortaa;
+	font-weight: bold;
+	color: black;
+	flex: 1;
+	padding: 0.5em 2em;
+}
+#connect input::placeholder,
+#register input::placeholder {
+	color: #ddd;
+	font-family: Comfortaa;
+}
+#connect .i-block i,
+#register .i-block i {
+	background-color: transparent;
+	border: 1px solid #ddd;
+	border-radius: 0 4px 4px 0px;
+	color: #3385ff;
+	font-size: 25px;
+	font-weight: lighter;
+	width: 30px;
+	text-align: center;
+	padding: 0.5em 0.75em;
+}
+#connect .buttons,
+#register .buttons {
+	text-align: center;
+}
+#connect input[type=submit],
+#register input[type=submit] {
+	border: none;
+	color: #ddd;
+	font-family: Ionicons;
+	font-size: 40px;
+	margin: 0px 30px;
+	padding: 10px;
+	cursor: pointer;
+}
+#connect input[type=submit]:hover,
+#register input[type=submit]:hover {
+	color: #3385ff;
+}
+#connect .switch,
+#register .switch {
+	color: white;
+	cursor: pointer;
+	text-align: center;
+}
+#connect .switch:hover,
+#register .switch:hover {
+	color: #3385ff;
+	text-decoration: underline;
+	
 }

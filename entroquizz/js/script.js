@@ -1,3 +1,68 @@
+
+window.onload = function() {
+	// Call the display/hide function when clicking the span
+	$(document).ready(function() {
+		$(".switch > span").on("click", function() {
+			$(this).after(switch_login());
+		});
+	});
+	
+	$('#signin').click(function() {
+		$('#connect').animate({
+			left: '50%',
+			opacity: '1'
+		});
+		$('#register').animate({
+			left: '50%',
+			opacity: '1'
+		});
+	});
+	$('#frontground').click(function() {
+		$('#connect').animate({
+			left: '80%',
+			opacity: '0'
+		});
+
+		$('#register').animate({
+			left: '80%',
+			opacity: '0',
+		});
+		setTimeout(() => {
+			popup_login();
+		}, 300);
+	});
+	
+	$('input').blur(function() {
+		var pass = $('input[name=r_password]').val();
+		var repass = $('input[name=r_repassword]').val();
+		
+		if (pass.length == 0 && repass.length == 0) {
+			$('.fa-unlock-alt').css('color', '#3385ff');
+	        $('.fa-check-circle-o').removeClass().addClass('fa fa-unlock-alt');
+		} else if (pass != repass) {
+	        $('.fa-unlock-alt').css('color', 'red');
+	        $('.fa-check-circle-o').css('color', 'red');
+	        $('.fa-check-circle-o').removeClass().addClass('fa fa-unlock-alt');
+	    } else {
+	        $('.fa-unlock-alt').css('color', 'green');
+	        $('.fa-unlock-alt').removeClass().addClass('fa fa-check-circle-o');
+	    }
+	});
+	
+	$('form').submit(function(event) {
+		var pass = $('input[name=r_password]').val();
+		var repass = $('input[name=r_repassword]').val();
+		
+		if ((pass.length == 0 && repass.length == 0) || (pass != repass)) {
+			$('.message').addClass('warning');
+			$('.message').text("Les mots de passe sont différents.");
+			event.preventDefault();
+		} else {
+			return;
+		}
+	});
+}
+
 function typeCheck(){
      if (document.getElementById('radioON').checked) {  //si vrai/faux coché
          document.getElementById('divON').style.display = 'block';
@@ -27,11 +92,33 @@ function boxCheck(){
          document.getElementById('rep4').value = 'true';
 }
 
-function popup_login(session_login,) {
-	if (session_login == null) {
-		document.getElementById('connect').style.display = "visible";
-		return false;
+function popup_login() {
+    var y = document.getElementById('connect');
+    var x = document.getElementById('register');
+    var front = document.getElementById('frontground');
+    
+	if (y.style.display == 'none' && front.style.display == 'none') {
+		y.style.display = 'block';
+		front.style.display = 'block';
 	} else {
-		return true;
+		y.style.display = 'none';
+		x.style.display = 'none';
+		front.style.display = 'none';
 	}
+}
+
+/**
+ * Display/Hide the login form
+ */
+function switch_login() {
+    var x = document.getElementById('register');
+    var y = document.getElementById('connect');
+
+    if (y.style.display === 'none') {
+        y.style.display = 'block';
+        x.style.display = 'none';
+    } else {
+        y.style.display = 'none';
+        x.style.display = 'block';
+    }
 }
