@@ -49,7 +49,7 @@ window.onload = function() {
 	    }
 	});
 	
-	$('form').submit(function(event) {
+	$('#register > form').submit(function(event) {
 		var pass = $('input[name=r_password]').val();
 		var repass = $('input[name=r_repassword]').val();
 		

@@ -243,6 +243,14 @@ a.icon {
 #register label {
 	display: none;
 }
+#register label {
+  justify-content: center;
+  align-self: center;;
+  flex-direction: column;
+}
+#register select {
+	font-family: Comfortaa;
+}
 #connect .i-block,
 #register .i-block {
 	display: flex;
