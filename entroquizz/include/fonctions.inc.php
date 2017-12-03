@@ -150,6 +150,86 @@
         pg_close($db_connection);
     }
     
+    /**
+     * Recupere tous les champs de la table Question
+     *
+     * @return string - Tableau HTML
+     */
+    function get_table($table_name) {
+        include '../include/postgres.conf.inc.php';
+        
+        // tableau HTML
+        $html_table = "<table>
+                    <tr>";
+        $query = "SELECT * FROM ".$table_name."";
+        
+        $connection = pg_connect($confi); // connexion a la BD
+        $result = pg_query($query); // execute la requete
+        $max_colums = pg_num_fields($result); // obtient le nombre de colonnes
+        
+        for ($field_number = 0; $field_number < $max_colums; $field_number++) {
+            $html_table .= "<th>".pg_field_name($result, $field_number)."</th>\n";
+        }
+        
+        $html_table .= "    <th>Modifier</th>\n
+                            <th>Supprimer</th>\n
+                        </tr>";
+        
+        while ($row = pg_fetch_assoc($result)) {
+            $html_table .= "<tr>\n";
+            
+            // affiche toutes les colonnes de la table
+            //             for ($index = 0; $index < $max_colums; $index++) {
+            //                 $html_table .= "<td>".$row[$index]."</td>\n";
+            
+            //             }
+            
+            foreach ($row as $key => $value) {
+                $html_table .= "<td>".$row[$key]."</td>\n";;
+            }
+            reset($row); 
+            $html_table .="     <td>
+                                    <a href=\"?updateid=\" class=\"icon\">
+                                        <i class=\"fa fa-pencil warning\"></i>
+                                    </a>
+                                </td>\n
+                                <td>
+                                    <a href=\"?delete=".$row[key($row)]."\" onclick=\"return confirm('Supprimer ".$row[key($row)]."')\" class=\"icon\">
+                                        <i class=\"fa fa-trash-o error\"></i>
+                                    </a>
+                                </td>\n
+                            </tr>";
+        }
+        $html_table .= "</table>";
+        
+        pg_free_result($result);
+        pg_close($connection);
+        
+        return $html_table;
+    }
+    
+    
+    function Tableau($req){
+        $stid = pg_query($req);
+        $res ="<table>\n<tr>\n";
+        $nbcol = pg_num_fields($stid);
+        for($i = 0; $i < $nbcol; $i++){
+            $res.= "<th>".pg_field_name($stid, $i)."</th>\n";
+        }
+        $res.= "</tr>";
+        while ($row = pg_fetch_array($stid)) {
+            $res.= "<tr>\n
+                        <td>" .$row[0]. "</td>\n
+                        <td>" .$row[1]. "</td>\n
+                        <td><a href=\"?updateid=".$row[0]."\" class=\"icon\"><i class=\"fa fa-pencil warning\"></i></a></td>\n
+                        <td><a href=\"?delete=".$row[0]."\" class=\"icon\"><i class=\"fa fa-trash-o error\"></i></td>\n
+                    </tr>\n";
+        }
+        $res.= "</table>\n";
+        pg_free_result($stid);
+        return $res;
+    }
+    
     function return_donnees_question($id) { //RETOURNE DANS UN TABLEAU KEY => VALUE LES CHAMPS COMMUNS A TOUTES LES QUESTIONS
         include ('../include/postgres.conf.inc.php');
         

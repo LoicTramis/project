@@ -5,6 +5,10 @@
     function chargerClasse($classe) {
         include './'.$classe.'.php'; // On inclut la classe correspondante au paramètre passé.
     }
+    function array_middle_shift(&$array,$key) {
+        $length=(($key+1)-count($array)==0)?1:($key+1)-count($array);
+        return array_splice($array,$key,$length);
+    }
 
     spl_autoload_register('chargerClasse'); // On enregistre la fonction en autoload pour qu'elle soit appelée dès qu'on instanciera une classe non déclarée.
 
@@ -19,57 +23,41 @@
     		$question=$quizz[$i];
     		$type_question=$question->type_question();
     		switch($type_question){
-    			case "question_on": $html.='<div class="question" style="display:none;">
-    								<p>Question '.($i+1).' :</p>
-    								<span>'.$question->text_question().'</span>
-    								<p>Vrai ou faux ?</p>
-    								<input type="radio" id="true" name="answer" value="true" checked> <label for="true">Vrai</label>
-    						 		<input type="radio" id="false" name="answer" value="false"> <label for="false">Faux</label>
-    						 		<br>
-    					 		</div>';    
-    				break;
-    
-    			case "question_cm": $html.='<div class="question" style="display:none;">
-    									<p>Question '.($i+1).' :</p>
-    									<span>'.$question->text_question().'</span>
-    							  		<p>Cochez les réponses correctes:</p>
-    							 		<input type="checkbox" id="rep1" name="answer1" value=""><label for="rep1">'.$question->choix_1().'</label><br>
-    							 		<input type="checkbox" id="rep2" name="answer2" value=""><label for="rep2">'.$question->choix_2().'</label><br>
-    							 		<input type="checkbox" id="rep3" name="answer3" value=""><label for="rep3">'.$question->choix_3().'</label><br>
-    							 		<input type="checkbox" id="rep4" name="answer4" value=""><label for="rep4">'.$question->choix_4().'</label><br>
-    						 	</div>';
-    				break;
-    
-    			case "question_texte": $html.='<div class="question" style="display:none;">
-    									<p>Question '.($i+1).' :</p>
-    									<span>'.$question->text_question().'</span>
-    							 		<label for="answer">Taper votre réponse (attention aux fautes de saisie) :</label>
-    									<input type="text" id="answer" name="answer" value="non"><br>
-    						 		</div>';
-    				break;
-    
-    
+    		    case "question_on": 
+    		        $html.='<div id="on" class="question" style="display:none;">
+                                <p>Question '.($i+1).' :</p>
+                                <span>'.$question->text_question().'</span>
+                                <p>Vrai ou faux ?</p>
+                                <input type="radio" class="q-on" id="vrai-'.$question->id_question().'" name="vf-'.$question->id_question().'" value="true" checked> <label for="vrai-'.$question->id_question().'">Vrai</label>
+                                 <input type="radio" class="q-on" id="faux-'.$question->id_question().'" name="vf-'.$question->id_question().'" value="false"> <label for="faux-'.$question->id_question().'">Faux</label>
+                             </div>';
+    		       break;
+    		    case "question_cm":
+    		        $html.='<div id="cm" class="question" style="display:none;">
+                                    <p>Question '.($i+1).' :</p>
+                                    <span>'.$question->text_question().'</span>
+                                      <p>Cochez les r�ponses correctes:</p>
+                                     <input type="checkbox" class="q-cm" id="rep1-'.$question->id_question().'" name="rep1-'.$question->id_question().'" value="false"><label for="rep1-'.$question->id_question().'">'.$question->choix_1().'</label><br>
+                                     <input type="checkbox" class="q-cm" id="rep2-'.$question->id_question().'" name="rep2-'.$question->id_question().'" value="false"><label for="rep2-'.$question->id_question().'">'.$question->choix_2().'</label><br>
+                                     <input type="checkbox" class="q-cm" id="rep3-'.$question->id_question().'" name="rep3-'.$question->id_question().'" value="false"><label for="rep3-'.$question->id_question().'">'.$question->choix_3().'</label><br>
+                                     <input type="checkbox" class="q-cm" id="rep4-'.$question->id_question().'" name="rep4-'.$question->id_question().'" value="false"><label for="rep4-'.$question->id_question().'">'.$question->choix_4().'</label><br>
+                            </div>';
+    		         break;
+    		    
+    		    case "question_texte": 
+    		        $html.='<div id="txt" class="question" style="display:none;">
+                                    <p>Question '.($i+1).' :</p>
+                                    <span>'.$question->text_question().'</span>
+                                     <label for="txt-'.$question->id_question().'">Taper votre r�ponse (attention aux fautes de saisie) :</label>
+                                    <input type="text" class="q-txt" id="txt-'.$question->id_question().'" name="txt-'.$question->id_question().'" value="non"><br>
+                                 </div>';
+    		      break;
     		}
     
     	}
-    	$html.='<input type="button" id="validate" value="Est-ce votre dernier mot" />
-    	</fieldset>
+    	$html .= "</fieldset>
     	</form>
-     	</div>
-     	<script>
-    		var questions= document.querySelectorAll(" #quizz .question ");
-    		var i=0;
-    
-    		window.onload=function(){ questions[0].style.display="block"; }
-    
-    		validate.addEventListener("click", function(e){
-    			questions[i].style.display="none";
-    			i++;
-    			if(i<questions.length) questions[i].style.display="block";
-    		});
-     	</script>
-     	</body>
-     	</html>';
+     	</div>";
     	return $html;
     
     }
@@ -78,17 +66,30 @@
     	$i=0;
     	$quizz = array(); //quizz est un tableau de questions	
     	$doublons = array(); //stock les id des questions pour ne pas avoir de doublons
+	    $suppress = false;
+	    
     	for ($i;$i<$nb_question;$i++){
     		$rand= rand (0,2);
     		switch($rand){
     			case 0: $id_questions= random_id(0,$difficulte,$theme); //fonction qui retourne le tableau qui contient tous les ID_questions des questions ON du thème correspondant
     					$max=count($id_questions); //taille du tableau
     					do{
+    					    if ($suppress == true) {
+    					        unset($id_questions[$rand2]);
+    					        array_middle_shift($id_questions,$rand2);
+    						    if (count($id_questions) == 0) {
+    						        $i -= 1;
+    						        continue;
+    						    }
+    						}
+    						$suppress = true;
+    						
     						$rand2=rand(0,$max-1); 		 //on choisit un ID_question au hasard
-    						$id_courant=$id_questions[$rand2];
+    						$id_courant = $id_questions[$rand2];
     					}
-    					while(in_array($id_courant,$doublons));						
+    					while(in_array($id_courant,$doublons));					
     					array_push($doublons, $id_courant); //on stocke l'id de la question inscrite dans le quizz pour ne pas la réobtenir
+    					
     					$donnees_question = return_donnees_question($id_courant);
     					$donnees_question_on = return_donnees_question_sup($id_courant, 0);
     					$question_courante = new Question_on($donnees_question, $donnees_question_on);
@@ -97,6 +98,17 @@
     			case 1: $id_questions= random_id(1,$difficulte,$theme); //fonction qui retourne le tableau qui contient tous les ID_questions des questions CM du thème correspondant
     					$max=count($id_questions); //taille du tableau
     					do{
+    					    if ($suppress == true) {
+    					        unset($id_questions[$rand2]);
+    					        array_middle_shift($id_questions,$rand2);
+    					        
+    					        if (count($id_questions) == 0) {
+    					            $i -= 1;
+    					            continue;
+    					        }
+    					    }
+    					    $suppress = true;
+    					    
     						$rand2=rand(1,$max-1); 		 //on choisit un ID_question au hasard
     						$id_courant=$id_questions[$rand2];
     					}
@@ -110,6 +122,16 @@
     			case 2: $id_questions= random_id(2,$difficulte,$theme); //fonction qui retourne le tableau qui contient tous les ID_questions des questions TXT du thème correspondant
     					$max=count($id_questions); //taille du tableau
     					do{
+    					    if ($suppress == true) {
+    					        unset($id_questions[$rand2]);
+    					        array_middle_shift($id_questions,$rand2);
+    					        
+    					        if (count($id_questions) == 0) {
+    					            $i -= 1;
+    					            continue;
+    					        }
+    					    }
+    					    $suppress = true;
     						$rand2=rand(2,$max-1); 		 //on choisit un ID_question au hasard
     						$id_courant=$id_questions[$rand2];
     					}
@@ -131,8 +153,13 @@
 	<article>
 		<h3>Question</h3>
 		<?php
-		  $html_code= html_quizz(return_questions_of_quizz("Espace", 2, "facile" ));
+		  $html_code= html_quizz(return_questions_of_quizz("Espace", 5, "facile" ));
 		  echo $html_code;
 		?>
+		<p id="re"></p>
+		<p id="non"></p>
+		<input type="button" id="confirm" onclick="getAnswer()" value="Confirmer" />
+		<input type="button" id="validate" value="Suivant" />
 	</article>
 </section>
+

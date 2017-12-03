@@ -10,14 +10,14 @@
 <html lang="fr">
     <head>
     	<title>Entroquizz - Version Beta</title>
-    	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    	<meta charset="utf-8">
     	<link href="../css/style.css" rel="stylesheet" type="text/css">
     	<link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
     	<link href="../css/ionicons.css" rel="stylesheet" type="text/css">
     	<script src="../js/jquery-3.2.1.js" type="text/javascript"></script>
     	<script src="../js/script.js" type="text/javascript"></script>
     	<script src="../js/ajax.js" type="text/javascript"></script>
-    	<script src='https://www.google.com/recaptcha/api.js'></script> <!-- reCAPTCHA -->
+    	<script src="https://www.google.com/recaptcha/api.js"></script> <!-- reCAPTCHA -->
 	</head>	
 	<body>
         <!-- transparent background for the log in div -->

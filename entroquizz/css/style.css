@@ -144,11 +144,10 @@ nav ul li:nth-child(2) > ul li:nth-child(4) a:hover {
 }
 section {
 	background: transparent;
-	margin-left: 230px;
 	position: absolute;
 	right:0;
 	top: 100px;
-	width: 90%;
+	width: 89%;
 }
 
 article {
@@ -192,6 +191,7 @@ div.mode a:hover {
 .hidden {
 	display: none;
 }
+/* delete this */
 .theme {
 	display: inline-block;
 	position: relative;
@@ -203,6 +203,9 @@ a.icon {
 }
 .error {
 	color: red;
+}
+.success {
+	color: green;
 }
 .warning {
 	color: orange;

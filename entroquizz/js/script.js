@@ -1,4 +1,3 @@
-
 window.onload = function() {
 	// Call the display/hide function when clicking the span
 	$(document).ready(function() {
@@ -61,6 +60,17 @@ window.onload = function() {
 			return;
 		}
 	});
+
+	var questions= document.querySelectorAll(" #quizz .question ");
+	var i=0;
+
+	questions[0].style.display="block";
+
+	validate.addEventListener("click", function(e){
+		questions[i].style.display="none";
+		i++;
+		if(i<questions.length) questions[i].style.display="block";
+	});
 }
 
 function typeCheck(){
@@ -121,4 +131,13 @@ function switch_login() {
         y.style.display = 'none';
         x.style.display = 'block';
     }
+}
+
+
+function getID(element) {
+	var temp_id = element.id;
+	var input = document.getElementById(element.id);
+	var real_id = temp_id.split("-");
+	
+	return real_id[1];
 }
