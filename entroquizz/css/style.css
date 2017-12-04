@@ -78,8 +78,7 @@ nav {
 	border-right: 1px solid;
 	border-right-color: #e6e6e6;
 	box-shadow: 2px 0px 2px #a6a6a6;
-	bot:0;
-	height: 100%;
+	bottom: 0;
 	color: black;
 	left: 0;
 	position: fixed;
@@ -87,16 +86,38 @@ nav {
 	width: 10%;
 }
 nav ul {
+	position: relative;
     list-style-type: none;
-    margin: 0px 0px 60px 0px;
+    margin: 0px 0px 0px 0px;
     padding: 0;
 }
-nav ul li {
+nav > ul > li {
 	margin: 15px 10px;
-	text-align: center;
 }
-nav ul li > ul li {
+nav > ul > li > p {
+	margin: 0;
 	padding: 0;
+}
+nav > ul > li > p,
+nav > ul > li > a {
+	border-bottom: 1px solid;
+	cursor: pointer;
+	display: block;
+	text-decoration: none;
+	text-align: left;
+	width: 100%;	
+}
+nav > ul > li:nth-child(1) > p {
+	color: #cc6600;
+	border-color: #cc6600;
+}
+nav > ul > li:nth-child(2) > p {
+	color: #8c1aff;
+	border-color: #8c1aff;
+}
+nav > ul > li > a {
+	color: #0066cc;
+	border-color: #0066cc;
 }
 nav ul li > ul li a {
 	background-color: #ddd;
@@ -106,6 +127,7 @@ nav ul li > ul li a {
 	display: block;
 	height: 100%;
 	padding: 10px 2px;	
+	text-align: center;
 	text-decoration: none;
 	width: 100%;
 }
@@ -114,33 +136,42 @@ nav ul li > ul li a:hover {
 }
 /* first list*/
 nav ul li:nth-child(1) > ul li:nth-child(1) a:hover {
-	background-color: blue;
-	box-shadow: 1px 1px 10px 3px #808080;
+	background-color: #ffbf00;
+	box-shadow: 1px 1px 10px 3px #cc9900;
 }
 nav ul li:nth-child(1) > ul li:nth-child(2) a:hover {
-	background-color: #ff6600;
-	box-shadow: 1px 1px 10px 3px #993d00;
+	background-color: #ff9900;
+	box-shadow: 1px 1px 10px 3px #cc7a00;
 }
 nav ul li:nth-child(1) > ul li:nth-child(3) a:hover {
-	background-color: #8000ff;
-	box-shadow: 1px 1px 10px 3px #4d0099;
+	background-color: #ff6600;
+	box-shadow: 1px 1px 10px 3px #cc5200;
 }
 /* second list */
 nav ul li:nth-child(2) > ul li:nth-child(1) a:hover {
-	background-color: blue;
-	box-shadow: 1px 1px 10px 3px #808080;
+	background-color: #cc33ff;
+	box-shadow: 1px 1px 10px 3px #ac00e6;
 }
 nav ul li:nth-child(2) > ul li:nth-child(2) a:hover {
-	background-color: #ff6600;
-	box-shadow: 1px 1px 10px 3px #993d00;
+	background-color: #9966ff;
+	box-shadow: 1px 1px 10px 3px #661aff;
 }
 nav ul li:nth-child(2) > ul li:nth-child(3) a:hover {
 	background-color: #8000ff;
 	box-shadow: 1px 1px 10px 3px #4d0099;
 }
 nav ul li:nth-child(2) > ul li:nth-child(4) a:hover {
-	background-color: blue;
-	box-shadow: 1px 1px 10px 3px #808080;
+	background-color: #5c5cd6;
+	box-shadow: 1px 1px 10px 3px #3333cc;
+}
+#panel-solo,
+#panel-multi {
+	display: none;
+}
+#panel-solo li,
+#panel-multi li {
+	padding: 10px 10px;
+	opacity: 0;
 }
 section {
 	background: transparent;
@@ -218,6 +249,53 @@ a.icon {
 }
 .text-center {
 	text-align: center;
+}
+
+.creation-theme {
+	display: flex;
+	left: 50%;
+	position: relative;
+	transform: translate(-50%);
+	width: 30%;
+}
+.creation-theme fieldset {
+	background-color: #f8f8f8;
+	border: none;
+	border-radius: 8px;
+	padding: 20px;
+	
+}
+.creation-theme legend {
+	display: none;
+}
+.creation-theme label {
+	font-weight: bold;
+}
+.creation-theme input[type=text] {
+	border: 1px solid;
+	border-color: #cccccc;
+	border-radius: 3px;
+	color: #333333;
+	font-size: larger;
+	padding: 15px 20px;
+	margin: 5px 0px;
+	width: 90%;
+}
+.creation-theme input[type=submit] {
+	background-color: white;
+	border: none;
+	border-radius: 5px;
+	box-shadow: 1px 1px 10px 1px #cccccc;
+	font-weight: bold;
+	font-size: 12pt;
+	font-family: Comfortaa;
+	padding: 12px 25px;
+	transition: ease 0.4s;
+}
+.creation-theme input[type=submit]:hover {
+	cursor: pointer;
+	background-color: #595959;
+	color: white;
 }
 
 #connect,

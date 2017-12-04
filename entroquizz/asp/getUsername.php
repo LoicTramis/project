@@ -7,10 +7,10 @@
 
     $db_connection = pg_connect($confi);
     $result = pg_query($db_connection, $query);
-    while ($row = pg_fetch_row($result)) {
-        if (strcasecmp($row[0], $name) === 0) {
-            $username = "Pseudo existe d&eacute;j&agrave; !";
-        }
+    $row = pg_fetch_row($result);
+    
+    if (strcasecmp($row[0], $name) == 0 && $name != "") {
+        $username = "Pseudo existe d&eacute;j&agrave; !";
     }
     echo $username;
     

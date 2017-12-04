@@ -128,26 +128,56 @@
     }
     
     /**
-     * Check if the username string already exists in the database (case insensitive)
+     * Verifie si l'utilisateur est connecté
      * 
-     * @param String $username
      * @return boolean
      */
-    function is_in_database($username) {
-        include '../include/postgres.conf.inc.php';
-        
-        $select_query = "SELECT count(*) FROM Utilisateur WHERE login='".pg_escape_string($username)."'";
-        
-        $db_connection = pg_connect($confi);
-        $result_query = pg_query($select_query) or die('Erreur SQL !'.$sql.'<br />'.pg_last_error());
-        $nb_username = pg_fetch_row($result_query);
-        // case insensitive comparison
-        if (strcasecmp($username, $nb_username[0])) {
+    function is_connected() {
+        if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
             return true;
         } else {
             return false;
         }
-        pg_close($db_connection);
+    }
+    
+    /**
+     * Verifie si l'utilisateur est administrateur
+     * 
+     * @return boolean
+     */
+    function is_admin() {
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1 && isset($_SESSION['username'])) {
+            return true;
+        } else if (isset($_SESSION['admin']) && $_SESSION['admin'] == 0) {
+            return false;
+        }
+    }
+    /**
+     * Verifie si la BD ne contient pas 
+     * 
+     * @param string $table_name - le nom de la table (ex: Utilisateur)
+     * @param string $attribut - Le nom de l'attribut (ex: login)
+     * @param string $value - Le nom de la variable a comparer (ex: Entropy)
+     * @return boolean
+     */
+    function is_in_database($table_name, $attribut, $value) {
+        include '../include/postgres.conf.inc.php';
+        
+        $exist = false;
+        $select_query = "SELECT count(*) FROM ".$table_name." WHERE lower(".$attribut.")=lower('".pg_escape_string($value)."')";
+        
+        $connextion = pg_connect($confi);
+        $result = pg_query($select_query) or die('Erreur SQL !'.$sql.' '.pg_last_error());
+        $nb_username = pg_fetch_row($result);
+        
+        // case insensitive comparison
+        if ($value == $nb_username[0]) {
+            $exist = true;
+        }
+        pg_free_result($result);
+        pg_close($connextion);
+        
+        return $exist;
     }
     
     /**

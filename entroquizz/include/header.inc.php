@@ -3,6 +3,40 @@
     session_set_cookie_params(0,'/');
     // start a new session or resume the last one
     session_start();
+    
+    require_once '../include/fonctions.inc.php';
+    
+    // if the user logs in correctly redirect to loggin.php then go back the previous page
+    if (isset($_POST['c_login']) && isset($_POST['c_password'])) {
+        connect_user();
+        
+        header("Status: 301 Moved Permanently", false, 301);
+        header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
+        
+        exit();
+    }
+    
+    // if the user signs in correctly redirect to loggin.php then get back to the previous page
+    if (isset($_POST['r_username']) && isset($_POST['r_email']) && isset($_POST['r_password']) && isset($_POST['r_repassword']) && isset($_POST['r_tribe'])) {
+        if (($_POST['r_password'] == $_POST['r_repassword']) && !empty($_POST['r_password']) && !empty($_POST['r_repassword'])) {
+            $username =     $_POST['r_username'];
+            $email =        $_POST['r_email'];
+            $password =     $_POST['r_password'];
+            $tribe =        $_POST['r_tribe'];
+            
+            // user is not in the database
+            if (!is_in_database("Utilisateur", "login", $username)) {
+                // enreistrer dans la BD
+                register_user($username, $email, $password, $tribe);
+                connect_user();
+                
+                header("Status: 301 Moved Permanently", false, 301);
+                header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
+                
+                exit();
+            }
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +48,9 @@
     	<link href="../css/style.css" rel="stylesheet" type="text/css">
     	<link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
     	<link href="../css/ionicons.css" rel="stylesheet" type="text/css">
-    	<script src="../js/jquery-3.2.1.js" type="text/javascript"></script>
-    	<script src="../js/script.js" type="text/javascript"></script>
-    	<script src="../js/ajax.js" type="text/javascript"></script>
+    	<script src="../js/jquery-3.2.1.js"></script>
+    	<script src="../js/script.js"></script>
+    	<script src="../js/ajax.js"></script>
     	<script src="https://www.google.com/recaptcha/api.js"></script> <!-- reCAPTCHA -->
 	</head>	
 	<body>
@@ -41,32 +75,32 @@
 		<nav>
 			<ul>
 				<li>	
-					<a href="../solo/">Solo</a>
-        			<ul>
-        				<li><a href="#">Simple</a></li>
+					<p id="flip-solo">Solo</p>
+        			<ul id="panel-solo">
+        				<li><a href="../solo/">Simple</a></li>
         				<li><a href="#">Al&eacute;atoire</a></li>
         				<li><a href="#">Chronom&eacute;tr&eacute;e</a></li>
         			</ul>
 				</li>
 				<li>
-					<a href="../multi/">Multi-joueur</a>
-					<ul>
+					<p id="flip-multi">Multi-joueur</p>
+					<ul id="panel-multi">
 						<li><a href="#">Temps limit&eacute;</a></li>
 						<li><a href="#">Mort subite</a></li>
 						<li><a href="#">D&eacute;s&eacute;quilibre</a></li>
-						<li><a href="#">Expansion (&Agrave; venir)</a></li>
+						<li><a href="#">Expansion</a></li>
 					</ul>
 				</li>
 				<li><a href="../account/">Mon compte</a></li>
 				<li><a href="../admin/">G&eacute;rer le site</a></li>
-				<li>Statistiques</li>
-				<li>Historique</li>
-				<li>Param&egrave;tres</li>
-				<li>&Agrave; propos</li>
+				<li><a href="../account/">Statistiques</a></li>
+				<li><a href="../account/">Historique</a></li>
+				<li><a href="../account/">Param&egrave;tres</a></li>
+				<li><a href="../account/">&Agrave; propos</a></li>
 			</ul>
 		</nav>
 		<div id="connect" style="display: none;">
-			<form method="post" action="../account/index.php" class="signin">
+			<form method="post" action="../account/loggin.php" class="signin">
 				<fieldset>
 				<legend >Connexion</legend>
 					<div class="i-block">
@@ -89,7 +123,7 @@
 			<p class="switch"><span>Inscrivez-vous</span></p>
 		</div>
 		<div id="register" style="display: none;">
-		<form method="post" action="../account/index.php">
+		<form method="post" action="../account/loggin.php">
 			<fieldset class="signup">
 				<legend>Inscription</legend>
 					<div class="i-block">
@@ -100,7 +134,7 @@
 					
 					<div class="i-block">
 						<label for="email" > E-mail : </label>
-						<input name="r_email" type="email" id="email" placeholder="E-mail" required>	
+						<input name="r_email" type="email" id="email" placeholder="E-mail" onkeyup="getEmail(this.value)" required>	
 						<i class="fa fa-envelope-o"></i>									
 					</div>
 
