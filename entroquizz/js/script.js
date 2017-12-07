@@ -98,16 +98,16 @@ window.onload = function() {
 		 $(this).hide();
 		});	
 	
-//	var questions= document.querySelectorAll(" #quizz .question ");
-//	var i=0;
-//
-//	questions[0].style.display="block";
-//
-//	validate.addEventListener("click", function(e){
-//		questions[i].style.display="none";
-//		i++;
-//		if(i<questions.length) questions[i].style.display="block";
-//	});
+	var questions= document.querySelectorAll(" #quizz .question ");
+	var i=0;
+
+	questions[0].style.display="block";
+
+	validate.addEventListener("click", function(e){
+		questions[i].style.display="none";
+		i++;
+		if(i<questions.length) questions[i].style.display="block";
+	});
 }
 
 function typeCheck(){

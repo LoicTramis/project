@@ -251,27 +251,53 @@ a.icon {
 	text-align: center;
 }
 
-.creation-theme {
+.creation-theme,
+.creation-question {
 	display: flex;
+	flex-direction: row;
 	left: 50%;
 	position: relative;
 	transform: translate(-50%);
-	width: 30%;
+	width: 40%;
 }
-.creation-theme fieldset {
+.creation-theme fieldset,
+.creation-question fieldset {
 	background-color: #f8f8f8;
 	border: none;
 	border-radius: 8px;
 	padding: 20px;
 	
 }
-.creation-theme legend {
+.creation-theme legend,
+.creation-question legend {
 	display: none;
 }
-.creation-theme label {
-	font-weight: bold;
+.creation-question .title {
+	border-bottom: 1px solid;
+	border-bottom-color: #3399ff;
+	color: #3399ff;
+	font-weight: 100;
 }
-.creation-theme input[type=text] {
+.creation-question select {
+	border: 1px solid;
+	border-color: #ccc;
+	border-radius: 2px;
+	display: flex;
+	font-size: 12pt;
+	margin: 5px 0px;
+	padding: 15px 10px;
+	width: 100%;
+}
+.creation-question .line {
+	display: flex;
+	margin-bottom: 20px;
+}
+.creation-theme label,
+.creation-question label {
+	font-weight: normal;
+}
+.creation-theme input[type=text],
+.creation-question input[type=text] {
 	border: 1px solid;
 	border-color: #cccccc;
 	border-radius: 3px;
@@ -281,7 +307,26 @@ a.icon {
 	margin: 5px 0px;
 	width: 90%;
 }
-.creation-theme input[type=submit] {
+.creation-theme input::placeholder,
+.creation-question input::placeholder {
+	color: gray;
+	font-family: Comfortaa;
+	font-size: 11pt;
+}
+.creation-question textarea {
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+	font-family: Comfortaa;
+	font-size: 12pt;
+	height: 100px;
+    padding: 12px 15px;
+    resize: none;
+    width: 100%;
+}
+.creation-theme input[type=submit],
+.creation-question input[type=submit] {
 	background-color: white;
 	border: none;
 	border-radius: 5px;
@@ -292,7 +337,8 @@ a.icon {
 	padding: 12px 25px;
 	transition: ease 0.4s;
 }
-.creation-theme input[type=submit]:hover {
+.creation-theme input[type=submit]:hover,
+.creation-question input[type=submit]:hover {
 	cursor: pointer;
 	background-color: #595959;
 	color: white;

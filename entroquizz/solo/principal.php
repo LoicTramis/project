@@ -173,8 +173,12 @@ function return_questions_of_quizz ($theme, $nb_question, $difficulte){ //RETOUR
 	<article>
 		<h3>Question</h3>
 		<?php
-		  $html_code= html_quizz(return_questions_of_quizz("Espace", 3, "facile" ));
-		  echo $html_code;
+		
+		  if (isset($_GET['theme']) && isset($_GET['difficulte']) && isset($_GET['nombre'])) {
+		      echo html_quizz(return_questions_of_quizz($_GET['theme'], $_GET['nombre'], $_GET['difficulte']));
+		  } else {
+		      echo "<p class=\"error\">Mauvais param&egrave;tres.</p>";
+		  }
 		?>
 		<p id="re"></p>
 		<p id="non"></p>

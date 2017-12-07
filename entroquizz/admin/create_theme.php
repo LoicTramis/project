@@ -16,7 +16,10 @@
             		<legend>Choisissez le th&egrave;me</legend>
             		
         	        <label for="theme">Nom du th&egrave;me : </label>
-    	            <input type="text" name="theme" id="theme" required/>
+    	            <input type="text" name="theme" id="theme" autofocus="autofocus" required/>
+    	            
+    	            <label for="soustheme">Sous-th&egrave;me :</label>
+    	            <input type="text" name="soustheme" id="soustheme"/>
     	            
                     <input type="submit" value="Enregistrer"/>
             	</fieldset>
@@ -25,16 +28,20 @@
             <?php 
                 
                 if(isset($_GET['theme'])){
+                    $connexion = pg_connect($confi);
                     $nom_theme = pg_escape_string($_GET['theme']);
+                    $sous_theme =(empty($_GET['soustheme'])) ? '' : pg_escape_string($_GET['soustheme']);
                     
-                    if (is_in_database("Theme", "nom_theme", $nom_theme)) {
-                        echo "<p class=\"warning\">D&eacute;j&agrave; dans la base de donn&eacute;es</p>";
-                    } else {
-                        $dbconn = pg_connect($confi);
+                    $query = " SELECT count(*) FROM Theme WHERE  nom_theme ILIKE '$nom_theme' AND  sous_theme ILIKE '$sous_theme' ";
+                    
+                    $result = pg_query($query);
+                    $data = pg_fetch_row($result);
+                    
+                    if($data[0] == 0){
                         //Inserer les données dans la base de donnée
-                        $psql ="INSERT INTO Theme (nom_theme) VALUES ('".$nom_theme."')";
+                        $psql ="INSERT INTO Theme (nom_theme,sous_theme) VALUES ('".$nom_theme."','".$sous_theme."')";
                         //execution de la requete
-                        $req=pg_query($dbconn,$psql);
+                        $req=pg_query($connexion,$psql);
         
                         //Test si l'insertion a été effectué
                        if (!$req) {
@@ -42,13 +49,18 @@
                        } else {
                           echo "<p class=\"success\">Th&egrave;me : \"".$_GET['theme']."\" enregist&eacute; !</p>";
                        }    
-                        if(isset($_GET['themeN'])){
-                            $p = $_GET['themeN'];
-                            $req2 = " UPDATE Theme SET nom_theme = ".$p." WHERE id_theme = ".$_GET['updateid'];
-                            $req=pg_query($dbconn,$req2);
-                        }
-                        pg_close($dbconn);
+                        pg_close($connexion);
                     }
+                }
+                
+                if(isset($_GET['themeN'])){
+                    include_once '../include/postgres.conf.inc.php';
+                    
+                    $connexion = pg_connect($confi);
+                    $p = $_GET['themeN'];
+                    $req2 = " UPDATE Theme SET nom_theme = ".$p." WHERE id_theme = ".$_GET['updateid'];
+                    $req=pg_query($connexion,$req2);
+                    pg_close($connexion);
                 }
                 
                 if (isset($_GET['delete_id']) && isset($_GET['delete_name'])) {
@@ -65,7 +77,7 @@
                     } else {
                         echo "<p class=\"success\">Th&egrave;me : \"".$_GET['delete_name']."\" supprim&eacute; !</p>";
                     }  
-                    
+                    pg_close($connexion);
                 }
             ?>
 		</article>

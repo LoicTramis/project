@@ -344,4 +344,25 @@
         pg_close($dbconn);
         return $donnees;
     }
+    
+    function get_names_table($colum_name,$table_name) {
+        include '../include/postgres.conf.inc.php';
+        
+        $names = array();
+        $query = "SELECT ".$colum_name." FROM ".$table_name;
+        
+        $connection = pg_connect($confi);        
+        $result = pg_query($query);
+        $row = pg_fetch_assoc($result);
+        
+        foreach ($row as $value) {
+            if (!in_array($value, $names)) {
+                array_push($names, $value);
+            }
+        }
+        pg_free_result($result);
+        pg_close($connection);
+        
+        return $names;
+    }
 ?>
