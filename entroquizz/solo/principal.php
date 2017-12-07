@@ -173,7 +173,8 @@ function return_questions_of_quizz ($theme, $nb_question, $difficulte){ //RETOUR
 	<article>
 		<h3>Question</h3>
 		<?php
-		  echo html_quizz(return_questions_of_quizz("Espace", 4, "facile" ));
+		  $html_code= html_quizz(return_questions_of_quizz("Espace", 3, "facile" ));
+		  echo $html_code;
 		?>
 		<p id="re"></p>
 		<p id="non"></p>

@@ -75,7 +75,7 @@
 		<nav>
 			<ul>
 				<li>	
-					<p id="flip-solo">Solo</p>
+					<p id="flip-solo"><i class="fa fa-user" aria-hidden="true"></i> Solo</p>
         			<ul id="panel-solo">
         				<li><a href="../solo/">Simple</a></li>
         				<li><a href="#">Al&eacute;atoire</a></li>
@@ -83,7 +83,7 @@
         			</ul>
 				</li>
 				<li>
-					<p id="flip-multi">Multi-joueur</p>
+					<p id="flip-multi"><i class="fa fa-users" aria-hidden="true"></i> Multi-joueur</p>
 					<ul id="panel-multi">
 						<li><a href="#">Temps limit&eacute;</a></li>
 						<li><a href="#">Mort subite</a></li>
@@ -91,12 +91,12 @@
 						<li><a href="#">Expansion</a></li>
 					</ul>
 				</li>
-				<li><a href="../account/">Mon compte</a></li>
-				<li><a href="../admin/">G&eacute;rer le site</a></li>
-				<li><a href="../account/">Statistiques</a></li>
-				<li><a href="../account/">Historique</a></li>
-				<li><a href="../account/">Param&egrave;tres</a></li>
-				<li><a href="../account/">&Agrave; propos</a></li>
+				<li><a href="../account/"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Mon compte</a></li>
+				<li><a href="../admin/"><i class="fa fa-wrench" aria-hidden="true"></i> G&eacute;rer le site</a></li>
+				<li><a href="../account/"><i class="fa fa-bar-chart" aria-hidden="true"></i> Statistiques</a></li>
+				<li><a href="../account/"><i class="fa fa-history" aria-hidden="true"></i> Historique</a></li>
+				<li><a href="../account/"><i class="fa fa-cog" aria-hidden="true"></i> Param&egrave;tres</a></li>
+				<li><a href="../account/"><i class="fa fa-info-circle" aria-hidden="true"></i> &Agrave; propos</a></li>
 			</ul>
 		</nav>
 		<div id="connect" style="display: none;">
