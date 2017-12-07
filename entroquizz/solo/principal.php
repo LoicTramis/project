@@ -153,7 +153,7 @@
 	<article>
 		<h3>Question</h3>
 		<?php
-		  $html_code= html_quizz(return_questions_of_quizz("Espace", 5, "facile" ));
+		  $html_code= html_quizz(return_questions_of_quizz("Espace", 3, "facile" ));
 		  echo $html_code;
 		?>
 		<p id="re"></p>

@@ -47,12 +47,25 @@
                             $req2 = " UPDATE Theme SET nom_theme = ".$p." WHERE id_theme = ".$_GET['updateid'];
                             $req=pg_query($dbconn,$req2);
                         }
-                        if (isset($_GET['delete'])) {
-                            $req1="DELETE FROM Theme WHERE id_theme = ".$_GET['delete'];
-                            $req=pg_query($dbconn,$req1);
-                        }
                         pg_close($dbconn);
                     }
+                }
+                
+                if (isset($_GET['delete_id']) && isset($_GET['delete_name'])) {
+                    include_once '../include/postgres.conf.inc.php';
+                    
+                    $query = "DELETE FROM Theme WHERE id_theme = ".$_GET['delete_id'];
+                    
+                    $connexion = pg_connect($confi);
+                    $result = pg_query($connexion, $query);
+                    
+                    //Test si l'insertion a été effectué
+                    if (!$result) {
+                        echo "<p class=\"error\">".pg_last_error()."</p>";
+                    } else {
+                        echo "<p class=\"success\">Th&egrave;me : \"".$_GET['delete_name']."\" supprim&eacute; !</p>";
+                    }  
+                    
                 }
             ?>
 		</article>

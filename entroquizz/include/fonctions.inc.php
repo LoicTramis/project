@@ -217,14 +217,17 @@
             foreach ($row as $key => $value) {
                 $html_table .= "<td>".$row[$key]."</td>\n";;
             }
-            reset($row); 
+            reset($row);
+           
             $html_table .="     <td>
                                     <a href=\"?updateid=\" class=\"icon\">
                                         <i class=\"fa fa-pencil warning\"></i>
                                     </a>
                                 </td>\n
                                 <td>
-                                    <a href=\"?delete=".$row[key($row)]."\" onclick=\"return confirm('Supprimer ".$row[key($row)]."')\" class=\"icon\">
+                                    <a  href=\"?delete_id=".$row[key($row)]."&delete_name=".next($row)."\"
+                                        onclick=\"return confirm('Voulez-vous vraiment supprimer le theme".current($row)."')\"
+                                        class=\"icon\">
                                         <i class=\"fa fa-trash-o error\"></i>
                                     </a>
                                 </td>\n
