@@ -3,6 +3,7 @@
     session_set_cookie_params(0,'/');
     // start a new session or resume the last one
     session_start();
+    header('Content-Type: text/html; charset=utf-8');
     
     require_once '../include/fonctions.inc.php';
     
@@ -30,8 +31,8 @@
                 register_user($username, $email, $password, $tribe);
                 connect_user();
                 
-                header("Status: 301 Moved Permanently", false, 301);
-                header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
+//                 header("Status: 301 Moved Permanently", false, 301);
+//                 header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
                 
                 exit();
             }
@@ -61,10 +62,10 @@
 			<ul>
 				<li><a href="../home/" class="header-logo"></a></li>
 			<?php 
-			    // user is not logged in
+			    // user is logged in
 			    if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 			        echo "<li><i class=\"fa fa-power-off\"></i>".$_SESSION['username']."</li>";
-    			// user is logged in
+    			// user is not logged in
 			    } else {
     				echo "<li onclick=\"popup_login()\" id=\"signin\"><i class=\"fa fa-power-off\"></i>Se connecter</li>";	
 			    }
@@ -91,8 +92,17 @@
 						<li><a href="#">Expansion</a></li>
 					</ul>
 				</li>
-				<li><a href="../account/"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Mon compte</a></li>
-				<li><a href="../admin/"><i class="fa fa-wrench" aria-hidden="true"></i> G&eacute;rer le site</a></li>
+				<li><a href="../account/"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Mon compte</a>
+				<?php echo (is_admin() ? "<li class=\"enable\">" : "<li class=\"disable\">"); ?>
+					<p id="flip-admin"><i class="fa fa-wrench" aria-hidden="true"></i> G&eacute;rer le site</p>
+					<ul id="panel-admin">
+    					<li><a href="../admin/create_theme.php">Cr&eacute;er des th&egrave;mes</a></li>
+    					<li><a href="../admin/create_question.php">Cr&eacute;er des questions</a></li>
+    					<li><a href="../admin/manage_theme.php">G&eacute;rer les th&egrave;mes</a></li>
+    					<li><a href="../admin/manage_question.php">G&eacute;rer les questions</a></li>
+    					<li><a href="../admin/manage_account.php">G&eacute;rer les comptes</a></li>
+					</ul>
+				</li>
 				<li><a href="../account/"><i class="fa fa-bar-chart" aria-hidden="true"></i> Statistiques</a></li>
 				<li><a href="../account/"><i class="fa fa-history" aria-hidden="true"></i> Historique</a></li>
 				<li><a href="../account/"><i class="fa fa-cog" aria-hidden="true"></i> Param&egrave;tres</a></li>
@@ -161,7 +171,7 @@
 							</optgroup>
 									
 							<optgroup label="Antagoniste">
-								<option value="piccolo">Piccolo</option>									
+								<option value="piccolo">Piccolo</option>
 								<option value="freezer">Freezer</option>		
 								<option value="cell">Cell</option>		
 								<option value="boo">Boo</option>

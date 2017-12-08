@@ -87,12 +87,30 @@ window.onload = function() {
 			$("#panel-multi").slideToggle(300);
 		}
     });
+	$("#flip-admin").click(function(){
+		if ($("#panel-admin").is(':visible')) {
+			$("#panel-admin li").animate({
+				opacity: 0
+			});
+	        $("#panel-admin").delay(400).slideToggle(300);
+		} else {
+			$("#panel-admin li").delay(400).animate({
+				opacity: 1
+			});
+			$("#panel-admin").slideToggle(300);
+		}
+    });
 	 $('#panel-solo').each(function() {
 		 $height = $(this).height();
 		 $(this).css('height', $height);
 		 $(this).hide();
 		});
 	 $('#panel-multi').each(function() {
+		 $height = $(this).height();
+		 $(this).css('height', $height);
+		 $(this).hide();
+		});	
+	 $('#panel-admin').each(function() {
 		 $height = $(this).height();
 		 $(this).css('height', $height);
 		 $(this).hide();

@@ -174,8 +174,9 @@ function return_questions_of_quizz ($theme, $nb_question, $difficulte){ //RETOUR
 		<h3>Question</h3>
 		<?php
 		
+		      $html = html_quizz(return_questions_of_quizz("Astronomie", 5, "facile"));
+		      echo $html;
 		  if (isset($_GET['theme']) && isset($_GET['difficulte']) && isset($_GET['nombre'])) {
-		      echo html_quizz(return_questions_of_quizz($_GET['theme'], $_GET['nombre'], $_GET['difficulte']));
 		  } else {
 		      echo "<p class=\"error\">Mauvais param&egrave;tres.</p>";
 		  }

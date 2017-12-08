@@ -81,6 +81,7 @@ nav {
 	bottom: 0;
 	color: black;
 	left: 0;
+	overflow: hidden;
 	position: fixed;
 	top: 60px;
 	width: 10%;
@@ -164,12 +165,35 @@ nav ul li:nth-child(2) > ul li:nth-child(4) a:hover {
 	background-color: #5c5cd6;
 	box-shadow: 1px 1px 10px 3px #3333cc;
 }
+/* fourth list */
+nav ul li:nth-child(4) > ul li:nth-child(1) a:hover {
+	background-color: #cc33ff;
+	box-shadow: 1px 1px 10px 3px #ac00e6;
+}
+nav ul li:nth-child(4) > ul li:nth-child(2) a:hover {
+	background-color: #9966ff;
+	box-shadow: 1px 1px 10px 3px #661aff;
+}
+nav ul li:nth-child(4) > ul li:nth-child(3) a:hover {
+	background-color: #8000ff;
+	box-shadow: 1px 1px 10px 3px #4d0099;
+}
+nav ul li:nth-child(4) > ul li:nth-child(4) a:hover {
+	background-color: #5c5cd6;
+	box-shadow: 1px 1px 10px 3px #3333cc;
+}
+nav ul li:nth-child(4) > ul li:nth-child(5) a:hover {
+	background-color: #5c5cd6;
+	box-shadow: 1px 1px 10px 3px #3333cc;
+}
 #panel-solo,
-#panel-multi {
+#panel-multi,
+#panel-admin {
 	display: none;
 }
 #panel-solo li,
-#panel-multi li {
+#panel-multi li,
+#panel-admin li {
 	padding: 10px 10px;
 	opacity: 0;
 }
@@ -221,6 +245,13 @@ div.mode a:hover {
 
 .hidden {
 	display: none;
+}
+.disable:hover {
+	cursor: not-allowed ;
+	color: yellow;
+}
+.enable:hover {
+	color: red;
 }
 /* delete this */
 .theme {

@@ -2,7 +2,7 @@
     require_once '../include/header.inc.php';
 ?>
 <section>
-	<h2>Bienvenue</h2>
+	<h2>Bienvenueééé</h2>
 	<article>
 		<h3 class="text-center">Jouer en solo</h3>
 		<div class="text-center">

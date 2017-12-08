@@ -7,7 +7,7 @@ function Formulaire($req,$var){
     $connection = pg_connect($confi);
     $stid = pg_query($req);
     $res="<select  name='".$var."'>\n";
-    $res.="<option value ='-1' >Choisissez...</option>\n";
+    $res.="<option value=\"-1\">Choisissez...</option>\n";
     while ($row = pg_fetch_array($stid)){
         $res.="<option name='".$row[1]."' value='".$row[0]."'>".$row[1]."</option>\n";
         
@@ -101,23 +101,29 @@ function Formulaire($req,$var){
 		$dbconn = pg_connect($confi);
 
 if(isset($_GET['difficulte']) && isset($_GET['type_question'])) {
-    
-    $id =$_GET['id_theme'];//id du thème
-    
     /*si choisi un sous thème on fait une requete qui
      recupère l'id du thème correspondant au sous_thème*/
-    if($_GET['s_theme'] != -1 ){
-        $query = "SELECT id_theme FROM Theme where nom_theme =(SELECT nom_theme FROM Theme where id_theme='$id') AND sous_theme<>'' ";
-        $result = pg_query($query);
-        $data = pg_fetch_row($result);
-        $id_theme = $data[0];
-        echo $id_theme;
-    }
-    else{//si non choisi sous thème
-        $query = "SELECT id_theme FROM Theme where  nom_theme =(SELECT nom_theme FROM Theme where id_theme='$id') AND sous_theme=''";
-        $result = pg_query($query);
-        $data = pg_fetch_row($result);
-        $id_theme = $data[0];
+    if(isset($_GET['id_theme']) && !empty($_GET['id_theme'])) {
+        
+        if (isset($_GET['s_theme']) && !empty($_GET['s_theme']) && ( $_GET['s_theme']!= -1)) {
+            $id = $_GET['s_theme'];
+            $query = "SELECT id_theme FROM Theme WHERE id_theme =(SELECT id_theme FROM Theme WHERE id_theme='$id') AND sous_theme<>'' ";
+            
+            $result = pg_query($query);
+            $data = pg_fetch_row($result);
+            
+            $id_theme = $data[0];
+            echo "le theme est ".$id_theme;
+        }
+        else if (isset($_GET['s_theme']) && ( $_GET['s_theme']== -1 ) ) {
+            
+            $id =$_GET['id_theme'];//id du theme
+            $id =$_GET['id_theme'];//id du theme
+            $query = "SELECT id_theme FROM Theme WHERE id_theme =(SELECT id_theme FROM Theme WHERE id_theme='$id') AND sous_theme=''";
+            $result = pg_query($query);
+            $data = pg_fetch_row($result);
+            $id_theme = $data[0];
+        }
     }
     
     
@@ -127,7 +133,7 @@ if(isset($_GET['difficulte']) && isset($_GET['type_question'])) {
     $text_question = pg_escape_string($_GET['description']);//enoncé du question
     
     //Retourne true ou false en fonction de la session adminis et utilisateur
-    $publie = (isset($_SESSION['admin']) && $_SESSION['admin'] == 1 && isset($_SESSION['username'])) ? 'TRUE':'FALSE';
+    $publie = (is_admin()) ? 'TRUE' : 'FALSE';
     
     $reponse = isset($_GET['reponse']) ? pg_escape_string($_GET['reponse']) : '';//reponse vrai/faux
     

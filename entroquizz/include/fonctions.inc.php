@@ -77,8 +77,39 @@
         $db_connection = pg_connect($confi);
         
         // SQL query
-        $insert_query = "   INSERT INTO Utilisateur (login, email, motdepasse, admini, avatar, badge_niveau, ip)
-                            VALUES ('".$enc_username."', '".$email."', '".$hash_password."', false, '".$avatar."', '', '12121212')"; 
+        $insert_query = "   INSERT INTO Utilisateur (
+                                login,
+                                email,
+                                motdepasse,
+                                admini,
+                                avatar,
+                                badge_niveau,
+                                nombre_points,
+                                nombre_quizz,
+                                nb_quizz_facile,
+                                nb_quizz_moyen,
+                                nb_quizz_difficile,
+                                classement,
+                                ip) 
+                            VALUES ('".$enc_username."',
+                                    '".$email."',
+                                    '".$hash_password."',
+                                    false,
+                                    '".$avatar."',
+                                    '',
+                                    DEFAULT,
+                                    DEFAULT,
+                                    DEFAULT,
+                                    DEFAULT,
+                                    DEFAULT,
+                                    DEFAULT,
+                                    '')"; 
+//         $insert_query = "INSERT INTO Utilisateur(login, email, motdepasse, admini, avatar, badge_niveau,nombre_points, nombre_quizz,
+//                                 nb_quizz_facile,
+//                                 nb_quizz_moyen,
+//                                 nb_quizz_difficile, classement, ip)
+//                         VALUES ('".pg_escape_string($enc_username)."', '".pg_escape_string($email)."', '".pg_escape_string($hash_password)."', false,
+//  '".pg_escape_string($avatar)."', DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT)"; 
         $result_query = pg_query($db_connection, $insert_query);
         
         // the query failed
@@ -353,13 +384,12 @@
         
         $connection = pg_connect($confi);        
         $result = pg_query($query);
-        $row = pg_fetch_assoc($result);
-        
-        foreach ($row as $value) {
-            if (!in_array($value, $names)) {
-                array_push($names, $value);
+        while ($row = pg_fetch_array($result)) {
+            if (!in_array($row[0], $names)) {
+                array_push($names, $row[0]);
             }
         }
+        
         pg_free_result($result);
         pg_close($connection);
         
