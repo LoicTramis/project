@@ -276,13 +276,14 @@
         
         if ($final_exp > 1000) {
             $icon_update_query = "UPDATE Utilisateur SET badge_niveau = 4 WHERE login='".$username."'";
+            pg_query($icon_update_query);
         } elseif ($final_exp > 500) {
             $icon_update_query = "UPDATE Utilisateur SET badge_niveau = 3 WHERE login='".$username."'";
+            pg_query($icon_update_query);
         } elseif ($final_exp > 100) {
             $icon_update_query = "UPDATE Utilisateur SET badge_niveau = 2 WHERE login='".$username."'";
-        }
-        
-        pg_query($icon_update_query);
+            pg_query($icon_update_query);
+        }    
         
         pg_close($connection);
         
@@ -417,9 +418,6 @@
         // the query failed
         if(!$result_query) {
             echo pg_last_error();
-        }
-        else {
-            echo "<p class=\"success\">Enregistrement r&eacute;ussi avec succ&egrave;s</p>";
         }
         pg_close($db_connection);
     }

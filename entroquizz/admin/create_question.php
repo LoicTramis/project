@@ -34,12 +34,12 @@ function Formulaire($req,$var){
                     <p class="title"><label for="">Th&egrave;me :</label></p>
                         <!-- recuperation des thËmes sans doublon-->
                         <?php 
-                            echo Formulaire('SELECT min(id_theme),nom_theme FROM Theme GROUP BY nom_theme','id_theme'); 
+                            echo Formulaire('SELECT min(id_theme),nom_theme FROM Theme GROUP BY nom_theme','nom_theme'); 
                          ?>
                     <p class="title"><label>Sous-th&egrave;me :</label></p>
                         <!-- recuperation des sous thËmes -->
                         <?php
-                            echo Formulaire("SELECT id_theme, sous_theme FROM Theme WHERE sous_theme<>'' ","s_theme");
+                            echo Formulaire("SELECT id_theme, sous_theme FROM Theme WHERE sous_theme<>'' ","sous_theme");
                         ?>
     
                     <p class="title"><label for="description">Enonc&eacute; de votre question :</label></p>
@@ -103,26 +103,24 @@ function Formulaire($req,$var){
 if(isset($_GET['difficulte']) && isset($_GET['type_question'])) {
     /*si choisi un sous th√®me on fait une requete qui
      recup√®re l'id du th√®me correspondant au sous_th√®me*/
-    if(isset($_GET['id_theme']) && !empty($_GET['id_theme'])) {
-        
-        if (isset($_GET['s_theme']) && !empty($_GET['s_theme']) && ( $_GET['s_theme']!= -1)) {
-            $id = $_GET['s_theme'];
-            $query = "SELECT id_theme FROM Theme WHERE id_theme =(SELECT id_theme FROM Theme WHERE id_theme='$id') AND sous_theme<>'' ";
+    if(isset($_GET['nom_theme']) && !empty($_GET['nom_theme'])) {
+        $nom_theme = $_GET['nom_theme'];
+        $sous_theme = $_GET['sous_theme'];
+        if (isset($_GET['sous_theme']) && ($_GET['sous_theme'] != "Choisissez...")) {
+            // $id =$_GET['s_theme'];
+            $query = "SELECT id_theme FROM Theme WHERE nom_theme = '$nom_theme' AND sous_theme='$sous_theme'";
             
             $result = pg_query($query);
             $data = pg_fetch_row($result);
-            
             $id_theme = $data[0];
-            echo "le theme est ".$id_theme;
+            //echo "le theme est ".$id_theme;
         }
-        else if (isset($_GET['s_theme']) && ( $_GET['s_theme']== -1 ) ) {
-            
-            $id =$_GET['id_theme'];//id du theme
-            $id =$_GET['id_theme'];//id du theme
-            $query = "SELECT id_theme FROM Theme WHERE id_theme =(SELECT id_theme FROM Theme WHERE id_theme='$id') AND sous_theme=''";
-            $result = pg_query($query);
-            $data = pg_fetch_row($result);
-            $id_theme = $data[0];
+        //si non choisi sous thËme
+        else if($_GET['sous_theme'] == "Choisissez..."){
+                $query = "SELECT id_theme FROM Theme WHERE nom_theme = '$nom_theme' AND sous_theme=''";
+                $result = pg_query($query);
+                $data = pg_fetch_row($result);
+                $id_theme = $data[0];
         }
     }
     

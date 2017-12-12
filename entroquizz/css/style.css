@@ -248,6 +248,7 @@ nav ul li:nth-child(4) > ul li:nth-child(5) a:hover {
 section {
 	background: transparent;
 	position: absolute;
+	left: 15%;
 	right:0;
 	top: 60px;
 	width: 89%;

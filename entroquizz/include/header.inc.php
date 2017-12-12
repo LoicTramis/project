@@ -3,7 +3,6 @@
     session_set_cookie_params(0,'/');
     // start a new session or resume the last one
     session_start();
-    header('Content-type: text/html; charset=utf-8');
     
     require_once '../include/fonctions.inc.php';
     
@@ -30,12 +29,11 @@
                 // enreistrer dans la BD
                 register_user($username, $email, $password, $tribe);
                 connect_user();
-                
-                header("Status: 301 Moved Permanently", false, 301);
-                header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
-                
-                exit();
             }
+            header("Status: 301 Moved Permanently", false, 301);
+            header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
+            
+            exit();
         }
     }
 ?>
