@@ -31,7 +31,7 @@ window.onload = function() {
 		}, 300);
 	});
 	
-	$('input').blur(function() {
+	$('input').keyup(function() {
 		var pass = $('input[name=r_password]').val();
 		var repass = $('input[name=r_repassword]').val();
 		
@@ -114,18 +114,25 @@ window.onload = function() {
 		 $height = $(this).height();
 		 $(this).css('height', $height);
 		 $(this).hide();
-		});	
-	
-	var questions= document.querySelectorAll(" #quizz .question ");
+		});
+	 
+	var questions = document.querySelectorAll("#quizz .question");
 	var i=0;
-
-	questions[0].style.display="block";
-
-	validate.addEventListener("click", function(e){
-		questions[i].style.display="none";
-		i++;
-		if(i<questions.length) questions[i].style.display="block";
-	});
+	
+	if (questions[0] !== undefined) {
+		questions[0].style.display = "block";
+		
+		validate.addEventListener("click", function(e){
+			questions[i].style.display="none";
+			i++;
+			if(i<questions.length){
+				questions[i].style.display="block";
+			}
+			$("#confirm").css("display", "block");
+			$("#validate").css("display", "none");
+		});
+		$("#validate").css("display", "none");
+	}
 }
 
 function typeCheck(){
@@ -188,11 +195,70 @@ function switch_login() {
     }
 }
 
-
+/**
+ * Split the actual ID and get the ID for DB compare
+ * 
+ * @param element - an element with an ID
+ * @returns formated ID
+ */
 function getID(element) {
 	var temp_id = element.id;
 	var input = document.getElementById(element.id);
 	var real_id = temp_id.split("-");
 	
 	return real_id[1];
+}
+
+/* --- QUIZZ --- */
+/**
+ * Check if all the field/checkbox/radio input are empty
+ * 
+ * @param type - the type of the question
+ * @returns boolean
+ */
+function check_empty_answer(type, inputs) {
+	
+	switch (type) {
+	case 'on':
+		var radio0 = document.getElementById(inputs[0].getAttribute('id'));
+		var radio1 = document.getElementById(inputs[1].getAttribute('id'));
+		
+	    if (radio0.checked == false && radio1.checked == false) {
+	    	document.getElementById("message").classList.add("error");
+	    	document.getElementById("message").innerHTML = "Dans le pire des cas 1 chance sur 2";
+	    	
+	        return false;
+	    }
+		break;
+	case 'cm':
+		var checkbox0 = document.getElementById(inputs[0].getAttribute('id'));
+		var checkbox1 = document.getElementById(inputs[1].getAttribute('id'));
+		var checkbox2 = document.getElementById(inputs[2].getAttribute('id'));
+		var checkbox3 = document.getElementById(inputs[3].getAttribute('id'));
+		
+	    if (checkbox0.checked == false
+	    		&& checkbox1.checked == false
+	    		&& checkbox2.checked == false
+	    		&& checkbox3.checked == false) {
+	    	document.getElementById("message").classList.add("error");
+	    	document.getElementById("message").innerHTML = "N'ayez pas peur cocher au moins 1 case.";
+	    	
+	        return false;
+	    }
+		break;
+	case 'txt':
+		var text = document.getElementById(inputs[0].getAttribute('id'));
+		
+	    if (text.value == "") {
+	    	document.getElementById("message").classList.add("error");
+	    	document.getElementById("message").innerHTML = "Voyons ! Tentez votre chance !";
+	    	
+	        return false;
+	    }
+		break;
+
+	default:
+		break;
+	}
+	return true;
 }

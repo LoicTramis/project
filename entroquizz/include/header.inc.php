@@ -3,7 +3,7 @@
     session_set_cookie_params(0,'/');
     // start a new session or resume the last one
     session_start();
-    header('Content-Type: text/html; charset=utf-8');
+    header('Content-type: text/html; charset=utf-8');
     
     require_once '../include/fonctions.inc.php';
     
@@ -31,8 +31,8 @@
                 register_user($username, $email, $password, $tribe);
                 connect_user();
                 
-//                 header("Status: 301 Moved Permanently", false, 301);
-//                 header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
+                header("Status: 301 Moved Permanently", false, 301);
+                header('Location: '.$_SERVER['HTTP_REFERER']); // retourne a la page precedente
                 
                 exit();
             }
@@ -63,11 +63,17 @@
 				<li><a href="../home/" class="header-logo"></a></li>
 			<?php 
 			    // user is logged in
-			    if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-			        echo "<li><i class=\"fa fa-power-off\"></i>".$_SESSION['username']."</li>";
+			    if (is_connected()) {
+			        echo "  <li class=\"badge\">
+                                <figure>
+                                    <img src=\"".get_icon($_SESSION['avatar'], $_SESSION['badge_niveau'])."\">
+                                    <figcaption class=\"hidden\"></figcaption>
+                                </figure>
+                            </li>
+                            <li class=\"badge\"><i class=\"fa fa-power-off\"></i>".$_SESSION['username']."</li>";
     			// user is not logged in
 			    } else {
-    				echo "<li onclick=\"popup_login()\" id=\"signin\"><i class=\"fa fa-power-off\"></i>Se connecter</li>";	
+    				echo "<li onclick=\"popup_login()\" id=\"signin\"><i class=\"fa fa-sign-in\"></i></li>";	
 			    }
 			?>
 			</ul>
@@ -76,15 +82,15 @@
 		<nav>
 			<ul>
 				<li>	
-					<p id="flip-solo"><i class="fa fa-user" aria-hidden="true"></i> Solo</p>
+					<p id="flip-solo"><i class="fa fa-user"></i>Solo</p>
         			<ul id="panel-solo">
-        				<li><a href="../solo/">Simple</a></li>
+        				<li><a href="../solo/simple.php">Simple</a></li>
         				<li><a href="#">Al&eacute;atoire</a></li>
         				<li><a href="#">Chronom&eacute;tr&eacute;e</a></li>
         			</ul>
 				</li>
 				<li>
-					<p id="flip-multi"><i class="fa fa-users" aria-hidden="true"></i> Multi-joueur</p>
+					<p id="flip-multi"><i class="fa fa-users"></i>Multi-joueur</p>
 					<ul id="panel-multi">
 						<li><a href="#">Temps limit&eacute;</a></li>
 						<li><a href="#">Mort subite</a></li>
@@ -92,21 +98,34 @@
 						<li><a href="#">Expansion</a></li>
 					</ul>
 				</li>
-				<li><a href="../account/"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Mon compte</a>
-				<?php echo (is_admin() ? "<li class=\"enable\">" : "<li class=\"disable\">"); ?>
-					<p id="flip-admin"><i class="fa fa-wrench" aria-hidden="true"></i> G&eacute;rer le site</p>
+				<li><a href="../account/"><i class="fa fa-id-card-o"></i>Mon compte</a></li>
+				<li><a href="../stats/"><i class="fa fa-bar-chart"></i>Statistiques</a></li>
+				<li><a href="../account/"><i class="fa fa-history"></i>Historique</a></li>
+				<?php 
+				    if (is_admin()) {
+				?>
+				<li>
+					<p id="flip-admin"><i class="fa fa-wrench"></i> G&eacute;rer le site</p>
 					<ul id="panel-admin">
-    					<li><a href="../admin/create_theme.php">Cr&eacute;er des th&egrave;mes</a></li>
-    					<li><a href="../admin/create_question.php">Cr&eacute;er des questions</a></li>
-    					<li><a href="../admin/manage_theme.php">G&eacute;rer les th&egrave;mes</a></li>
-    					<li><a href="../admin/manage_question.php">G&eacute;rer les questions</a></li>
-    					<li><a href="../admin/manage_account.php">G&eacute;rer les comptes</a></li>
+						<li>Cr&eacute;er</li>
+    					<li><a href="../admin/create_theme.php">Th&egrave;mes</a></li>
+    					<li><a href="../admin/create_question.php">Questions</a></li>
+    					<li>G&eacute;rer</li>
+    					<li><a href="../admin/manage_theme.php">Th&egrave;mes</a></li>
+    					<li><a href="../admin/manage_question.php">Questions</a></li>
+    					<li><a href="../admin/manage_account.php">Comptes</a></li>
 					</ul>
 				</li>
-				<li><a href="../account/"><i class="fa fa-bar-chart" aria-hidden="true"></i> Statistiques</a></li>
-				<li><a href="../account/"><i class="fa fa-history" aria-hidden="true"></i> Historique</a></li>
-				<li><a href="../account/"><i class="fa fa-cog" aria-hidden="true"></i> Param&egrave;tres</a></li>
-				<li><a href="../account/"><i class="fa fa-info-circle" aria-hidden="true"></i> &Agrave; propos</a></li>
+				
+				<?php
+				    } else {
+	            ?>
+				<li><a href="../account/suggest.php"><i class="fa fa-exclamation-circle"></i>Proposer</a></li>
+				<?php
+				    }
+				?>				
+				<li><a href="../account/"><i class="fa fa-cog"></i>Param&egrave;tres</a></li>
+				<li><a href="../account/"><i class="fa fa-info-circle"></i>&Agrave; propos</a></li>
 			</ul>
 		</nav>
 		<div id="connect" style="display: none;">
@@ -171,7 +190,7 @@
 							</optgroup>
 									
 							<optgroup label="Antagoniste">
-								<option value="piccolo">Piccolo</option>
+								<option value="cooler">Cooler</option>
 								<option value="freezer">Freezer</option>		
 								<option value="cell">Cell</option>		
 								<option value="boo">Boo</option>
@@ -185,6 +204,8 @@
                     <!-- For college server -->
 					<div class="g-recaptcha" data-sitekey="6LeEnjoUAAAAAGRQtzVI5Fsdjf_mwYkRXu1ja13Y"></div>
 					
+<!-- 					For entoquizz.alwaysdata.net -->
+<!--                    <div class="g-recaptcha" data-sitekey="6Ld6nTwUAAAAAJCr3kJC84LF1ClVMOViRCVIZPMZ"></div> -->
 					<p class="message" id="oui"></p>
 					
 					<div class="buttons">

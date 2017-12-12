@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scale [
+	<!ELEMENT scale (character+)>
+	<!ELEMENT character (name, level+)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT level (description)>
+	<!ELEMENT description (#PCDATA)>
+	<!ELEMENT exp EMPTY>
+	
+	<!ATTLIST character side CDATA #REQUIRED>
+	<!ATTLIST description exp CDATA #REQUIRED>
+]>
+<scale>
+	<character side="saiyan">
+		<name>San Goku</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Super Saiyan</description>
+		</level>
+		<level>
+			<description exp="500">Super Saiyan 2</description>
+		</level>
+		<level>
+			<description exp="1000">Super Saiyan 3</description>
+		</level>
+	</character>
+	<character side="saiyan">
+		<name>Vegeta</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Super Saiyan</description>
+		</level>
+		<level>
+			<description exp="500">Super Saiyan 2</description>
+		</level>
+		<level>
+			<description exp="1000">Majin Vegeta</description>
+		</level>
+	</character>
+	<character side="saiyan">
+		<name>San Gohan</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Super Saiyan</description>
+		</level>
+		<level>
+			<description exp="500">Super Saiyan 2</description>
+		</level>
+		<level>
+			<description exp="1000">Supreme Kai</description>
+		</level>
+	</character>
+	<character side="saiyan">
+		<name>Trunks</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Super Saiyan</description>
+		</level>
+		<level>
+			<description exp="500">Ultra Super Saiyan</description>
+		</level>
+		<level>
+			<description exp="1000">N/A</description>
+		</level>
+	</character>
+	
+	<character side="rival">
+		<name>Cooler</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Form 2</description>
+		</level>
+		<level>
+			<description exp="500">Form 3</description>
+		</level>
+		<level>
+			<description exp="1000">Final Form</description>
+		</level>
+	</character>
+	<character side="rival">
+		<name>Freeze</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Form 2</description>
+		</level>
+		<level>
+			<description exp="500">Form 3</description>
+		</level>
+		<level>
+			<description exp="1000">Final Form</description>
+		</level>
+	</character>
+	<character side="rival">
+		<name>Cell</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Form 2</description>
+		</level>
+		<level>
+			<description exp="500">Form 3</description>
+		</level>
+		<level>
+			<description exp="1000">Final Form</description>
+		</level>
+	</character>
+	<character side="rival">
+		<name>Buu</name>
+		<level>
+			<description exp="0">Normal</description>
+		</level>
+		<level>
+			<description exp="100">Form 2</description>
+		</level>
+		<level>
+			<description exp="500">Form 3</description>
+		</level>
+		<level>
+			<description exp="1000">Final Form</description>
+		</level>
+	</character>
+</scale>

@@ -16,8 +16,9 @@
 }
 
 body {
-	background-color: #e6e6e6;
+	background-color: #efefef;
 	font-family: Comfortaa;
+	white-space: nowrap;
 }
 #frontground {
 	background-color: black;
@@ -30,8 +31,11 @@ body {
 	z-index: 2;
 }
 header {
-	background-color: #262626;
-	color: white;
+	background-color: #f9f9f9;
+	border-bottom: 1px solid;
+	border-bottom-color: #c6c6c6;
+	box-shadow: 0px 0px 3px #a6a6a6;
+	display: flex;
 	left:0;
 	position: fixed;
 	top: 0;
@@ -55,13 +59,15 @@ header a {
 	background-size: contain;
 }
 header ul {
-	margin: 0;
-	padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
 }
 header ul li {
-    cursor: pointer;
-    list-style-type: none;
     padding: 10px 5px;
+    float: left;
 }
 header ul li:first-child {
 	float: left;
@@ -73,6 +79,47 @@ header ul li:last-child {
 header ul li:hover {
 	color: #3385ff;
 }
+header ul li#signin {
+	cursor: pointer;
+}
+header ul li.badge,
+header ul li#signin {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	top: 50%;
+	right: 5px;
+	transform:translate(0, -50%);
+}
+header ul li#signin {
+	color: #0066ff;
+	font-size: 20pt;
+	right: 20px; 
+}
+header ul li#signin:hover {
+	color: #3399ff;
+	cursor: pointer;
+}
+header ul li > figure {
+	margin: 0px;
+	padding: 0px;
+}
+header ul li.badge:last-child {
+	position: absolute;
+	color: #0066ff;
+	margin: 0px;
+	padding: 0;
+	top: 50%;
+	right: 65px;
+	transform:translate(0, -50%);
+}
+header ul li.badge:hover:last-child {
+	cursor: default;
+}
+header .badge figure img {
+	width: 60px;
+	height: 60px;
+}
 nav {
 	background-color: #f2f2f2;
 	border-right: 1px solid;
@@ -81,6 +128,7 @@ nav {
 	bottom: 0;
 	color: black;
 	left: 0;
+	min-width: 170px;
 	overflow: hidden;
 	position: fixed;
 	top: 60px;
@@ -201,13 +249,110 @@ section {
 	background: transparent;
 	position: absolute;
 	right:0;
-	top: 100px;
+	top: 60px;
 	width: 89%;
 }
 
 article {
 	position: relative;
 	width: 100%;
+}
+
+footer {
+	bottom: 0;
+	color: #444;
+	font-size: 8pt;
+	position: fixed;
+	width: 10%;
+}
+
+/* --- QUESTIONS --- */
+#quizz {
+	background-color: white;
+	border: none; 
+	border-radius: 5px;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+	width: 90%;
+}
+#quizz fieldset {
+	border: none;
+}
+#quizz .question span {
+	background-color: #cce0ff;
+	border: 1px solid;
+	border-color: #cce0ff;
+	box-shadow: 0px 0px 10px #3366ff;
+	display: block;
+	font-size: 18pt;
+	left: 50%;
+	padding: 20px 0;
+	position: relative;
+	text-align: center;
+	transform: translate(-50%);
+	width: 80%;
+}
+#quizz #cm label {
+	background-color: #ffcc99;
+	border: 1px solid;
+	border-color: #ffcc99;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px #ffa64d;
+	font-size: 20pt;
+	display: inline-block;
+	margin: 20px;
+	padding: 60px;
+}
+#quizz #txt label {
+	margin: 20px;
+}
+#quizz .question input[type=radio] {
+	display: inline-block;
+}
+#quizz .question .wholeline {
+	text-align: center;
+}
+#quizz .question input[type=checkbox] {
+	display: inline-block;
+}
+#quizz .question input[type=text] {
+	border: 1px solid;
+	border-color: #a6a6a6;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px #a6a6a6; 
+	display: block;
+	font-family: Comfortaa;
+	font-size: 18pt;
+	left: 50%;
+	padding: 25px 15px;
+	position: relative;
+	transform: translate(-50%);
+	width: 70%;
+}
+#quizz .question input[type=text]::placeholder {
+	color: #b3b3b3;
+	font-family: Comfortaa;
+	font-size: 14pt;
+}
+
+/* --- TAG --- */
+h2 {
+	border-bottom: 1px solid;
+	border-bottom-color: #3366ff;
+	color: #3366ff;
+	font-size: 14pt;
+	font-weight: bold;
+	width: 95%;
+}
+h3 {
+	border-bottom: 1px solid;
+	border-bottom-color: #3385ff;
+	color: #3385ff;
+	font-size: 12pt;
+	font-weight: normal;
+	margin-left: 2em;
+	width: 90%;
 }
 i {
 	padding: 0px 5px;
@@ -242,7 +387,10 @@ div.mode a:hover {
 	background-repeat: no-repeat;
 	background-position: center;
 }
-
+.dragonball img {
+	display: flex;
+	flex-direction: column;
+}
 .hidden {
 	display: none;
 }
@@ -252,12 +400,6 @@ div.mode a:hover {
 }
 .enable:hover {
 	color: red;
-}
-/* delete this */
-.theme {
-	display: inline-block;
-	position: relative;
-	width: 300px;
 }
 a.icon {
 	text-decoration: none;
@@ -374,7 +516,53 @@ a.icon {
 	background-color: #595959;
 	color: white;
 }
-
+/* --- Account --- */
+.card {
+	background-color: white;
+	border: 1px solid white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px #a6a6a6;
+	display: flex;
+	flex-direction: row;
+	left: 50%;
+	padding: 15px;
+	position: relative;
+	transform: translate(-50%);
+	width: 80%;
+}
+.card > div > p.subtitle {
+	border-bottom: 1px solid #595959;
+	color: #595959;
+	font-size: 10pt;
+	margin-left: 10px;
+	width: 90%;
+}
+.card > div > p.subtitle > i {
+	padding-bottom: 7px;
+}
+.card > div > p.info {
+	margin-left: 20px;
+	font-size: 14pt;
+	font-weight: bold;
+}
+.card > .data {
+	background-color: #f0edf7;
+	border: 1px solid #f0edf7;
+	border-radius: 4px;
+	box-shadow: 0px 0px 5px #cc99ff;
+	position: relative;
+	margin-right: 5px;
+	width: 50%;
+}
+.card > .stats {
+	background-color: #ebf6f9;
+	border: 1px solid #ebf6f9;
+	box-shadow: 0px 0px 5px #66a3ff;
+	border-radius: 4px;
+	position: relative;
+	margin-left: 5px;
+	width: 50%;
+}
 #connect,
 #register {
 	left: 80%;

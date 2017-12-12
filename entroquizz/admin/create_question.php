@@ -192,10 +192,10 @@ if(isset($_GET['difficulte']) && isset($_GET['type_question'])) {
                             echo pg_last_error();
                         }
                         else {
-                            echo "<article>
-        <h3>R&eacute;sultat :</h3>
-<p class=\"success\">Enregistrement r&eacute;ussi avec succ&egrave;s</p>\n
-</article>";
+                            echo "  <article>
+                                        <h3>R&eacute;sultat :</h3>
+                                        <p class=\"success\">Enregistrement r&eacute;ussi avec succ&egrave;s</p>\n
+                                    </article>";
                             echo $id_quest[0];
                         }
                         pg_close();

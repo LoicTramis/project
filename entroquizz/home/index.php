@@ -2,9 +2,9 @@
     require_once '../include/header.inc.php';
 ?>
 <section>
-	<h2>Bienvenueééé</h2>
+	<h2>Bienvenue sur EntroQuizz le meilleur site de quizz</h2>
 	<article>
-		<h3 class="text-center">Jouer en solo</h3>
+		<h3 class="solo"><i class="fa fa-user"></i> Solo</h3>
 		<div class="text-center">
     		<div class="mode">
     			<a href="../solo/simple.php">Simple</a>
@@ -19,7 +19,7 @@
 	</article>	
 	
 	<article>
-		<h3 class="text-center">Jouer &agrave; plusieurs</h3>
+		<h3 class="mutli"><i class="fa fa-users"></i> Multi</h3>
 		<div class="text-center">
     		<div class="mode">
     			<a href="../multi/countdown.php">Compte &agrave; rebours</a>

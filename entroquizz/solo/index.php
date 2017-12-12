@@ -4,7 +4,7 @@
 <section>
 	<article>
 		<h3>Solo</h3>
-		<form action="./principal.php" method="get">
+		<form action="./simple.php" method="get">
 			<fieldset>
 				<legend>Choisissez les param&egrave;tres du quizz</legend>
 				
