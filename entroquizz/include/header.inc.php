@@ -45,8 +45,10 @@
     	<title>Entroquizz - Version Beta</title>
     	<meta charset="utf-8">
     	<link href="../css/style.css" rel="stylesheet" type="text/css">
+    	<link href="../css/media_	style.css" rel="stylesheet" type="text/css">
     	<link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
     	<link href="../css/ionicons.css" rel="stylesheet" type="text/css">
+		<link href="../img/favicon.png" rel="shortcut icon" type="image/png">
     	<script src="../js/jquery-3.2.1.js"></script>
     	<script src="../js/script.js"></script>
     	<script src="../js/ajax.js"></script>
@@ -58,7 +60,8 @@
 		<header>
 			<h1 class="hidden">Entroquizz</h1>
 			<ul>
-				<li><a href="../home/" class="header-logo"></a></li>
+				<li id="nav-buttton" onclick="display_nav()"><i class="fa fa-bars"></i></li>
+				<li class="header-logo"><a href="../home/"></a></li>
 			<?php 
 			    // user is logged in
 			    if (is_connected()) {
@@ -75,9 +78,8 @@
 			    }
 			?>
 			</ul>
-
 		</header>
-		<nav>
+		<nav id="nav-panel">
 			<ul>
 				<li>	
 					<p id="flip-solo"><i class="fa fa-user"></i>Solo</p>

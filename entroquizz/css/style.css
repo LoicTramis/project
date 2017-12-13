@@ -28,7 +28,7 @@ body {
 	position: fixed;
 	top: 0;
 	width: 100%;
-	z-index: 2;
+	z-index: 4;
 }
 header {
 	background-color: #f9f9f9;
@@ -41,7 +41,7 @@ header {
 	top: 0;
 	width: 100%;
 	height: 60px;
-	z-index: 1;
+	z-index: 3;
 }
 header h1 {
 	margin: 0;
@@ -53,11 +53,6 @@ header a {
 	display: block;
 	height: 50px;
 }
-.header-logo {
-	background-image: url("../img/logo_main.png");
-	background-repeat: no-repeat;
-	background-size: contain;
-}
 header ul {
     list-style-type: none;
     margin: 0;
@@ -66,39 +61,42 @@ header ul {
     width: 100%;
 }
 header ul li {
-    padding: 10px 5px;
+    margin: 0;
+    padding: 0;
+	position: absolute;
     float: left;
+	top: 50%;
+	transform:translate(0, -50%);
 }
-header ul li:first-child {
+header ul li:hover {
+	color: #3385ff;
+	cursor: pointer;
+}
+header ul li#nav-buttton {
+	left: 15px;
+	font-size: 15pt;
+    text-align: center;
+}
+header ul li.header-logo {
+	background-image: url("../img/logo_main.png");
+	background-repeat: no-repeat;
+	background-size: contain;
 	float: left;
-    width: 200px;
+	top: 60%;
+	left: 50px;
+	width: 200px;
 }
 header ul li:last-child {
 	float: right;
 }
-header ul li:hover {
-	color: #3385ff;
-}
-header ul li#signin {
-	cursor: pointer;
-}
 header ul li.badge,
 header ul li#signin {
-	position: absolute;
-	margin: 0;
-	padding: 0;
-	top: 50%;
 	right: 5px;
-	transform:translate(0, -50%);
 }
 header ul li#signin {
 	color: #0066ff;
 	font-size: 20pt;
 	right: 20px; 
-}
-header ul li#signin:hover {
-	color: #3399ff;
-	cursor: pointer;
 }
 header ul li > figure {
 	margin: 0px;
@@ -119,6 +117,102 @@ header ul li.badge:hover:last-child {
 header .badge figure img {
 	width: 60px;
 	height: 60px;
+}#connect,
+#register {
+	left: 80%;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 400px;
+	z-index: 5;
+}
+#connect form,
+#register form {
+	background-color: white;
+	border-radius: 5px;
+}
+#connect fieldset,
+#register fieldset {
+	border: none;
+	padding: 40px 20px
+}
+#connect legend,
+#register legend,
+#connect label,
+#register label {
+	display: none;
+}
+#register label {
+  justify-content: center;
+  align-self: center;;
+  flex-direction: column;
+}
+#register select {
+	font-family: Comfortaa;
+}
+#connect .i-block,
+#register .i-block {
+	display: flex;
+	margin: 20px 0px;
+}
+#connect input,
+#register input {
+	background-color: transparent;
+	border: 1px solid #ddd;
+	border-right: none;
+	border-radius: 4px 0 0 4px;
+	font-family: Comfortaa;
+	font-weight: bold;
+	color: black;
+	flex: 1;
+	padding: 0.5em 2em;
+}
+#connect input::placeholder,
+#register input::placeholder {
+	color: #ddd;
+	font-family: Comfortaa;
+}
+#connect .i-block i,
+#register .i-block i {
+	background-color: transparent;
+	border: 1px solid #ddd;
+	border-radius: 0 4px 4px 0px;
+	color: #3385ff;
+	font-size: 25px;
+	font-weight: lighter;
+	width: 30px;
+	text-align: center;
+	padding: 0.5em 0.75em;
+}
+#connect .buttons,
+#register .buttons {
+	text-align: center;
+}
+#connect input[type=submit],
+#register input[type=submit] {
+	border: none;
+	color: #ddd;
+	font-family: Ionicons;
+	font-size: 40px;
+	margin: 0px 30px;
+	padding: 10px;
+	cursor: pointer;
+}
+#connect input[type=submit]:hover,
+#register input[type=submit]:hover {
+	color: #3385ff;
+}
+#connect .switch,
+#register .switch {
+	color: white;
+	cursor: pointer;
+	text-align: center;
+}
+#connect .switch:hover,
+#register .switch:hover {
+	color: #3385ff;
+	text-decoration: underline;
 }
 nav {
 	background-color: #f2f2f2;
@@ -126,13 +220,13 @@ nav {
 	border-right-color: #e6e6e6;
 	box-shadow: 2px 0px 2px #a6a6a6;
 	bottom: 0;
-	color: black;
 	left: 0;
 	min-width: 170px;
 	overflow: hidden;
 	position: fixed;
 	top: 60px;
 	width: 10%;
+	z-index: 2;
 }
 nav ul {
 	position: relative;
@@ -183,7 +277,7 @@ nav ul li > ul li a {
 nav ul li > ul li a:hover {
 	color: white;
 }
-/* first list*/
+/* first list - SOLO */
 nav ul li:nth-child(1) > ul li:nth-child(1) a:hover {
 	background-color: #ffbf00;
 	box-shadow: 1px 1px 10px 3px #cc9900;
@@ -196,7 +290,7 @@ nav ul li:nth-child(1) > ul li:nth-child(3) a:hover {
 	background-color: #ff6600;
 	box-shadow: 1px 1px 10px 3px #cc5200;
 }
-/* second list */
+/* second list  - MULTI */
 nav ul li:nth-child(2) > ul li:nth-child(1) a:hover {
 	background-color: #cc33ff;
 	box-shadow: 1px 1px 10px 3px #ac00e6;
@@ -213,7 +307,7 @@ nav ul li:nth-child(2) > ul li:nth-child(4) a:hover {
 	background-color: #5c5cd6;
 	box-shadow: 1px 1px 10px 3px #3333cc;
 }
-/* fourth list */
+/* fourth list - ADMIN */
 nav ul li:nth-child(4) > ul li:nth-child(1) a:hover {
 	background-color: #cc33ff;
 	box-shadow: 1px 1px 10px 3px #ac00e6;
@@ -248,8 +342,7 @@ nav ul li:nth-child(4) > ul li:nth-child(5) a:hover {
 section {
 	background: transparent;
 	position: absolute;
-	left: 15%;
-	right:0;
+	right: 0;
 	top: 60px;
 	width: 89%;
 }
@@ -267,7 +360,7 @@ footer {
 	width: 10%;
 }
 
-/* --- QUESTIONS --- */
+/* --- QUIZZ AND QUESTIONS --- */
 #quizz {
 	background-color: white;
 	border: none; 
@@ -358,11 +451,12 @@ h3 {
 i {
 	padding: 0px 5px;
 }
-div.mode {
-	display: inline-block;
-	height: 300px;
-	margin: 20px 50px;
-	width: 300px;
+/* --- HOME PAGE --- */
+.solo-part,
+.multi-part {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 div.mode a {
 	border-radius: 5px;
@@ -379,11 +473,13 @@ div.mode a:hover {
     opacity: 0.5;
 }
 .death a {
-    background-color: white;
+    background-color: #9966ff;
     background-image: url("../img/sudden_death.png");
+	background-repeat: no-repeat;
+	background-position: center;
 }
 .unbalanced a {
-	background-color: #7339ac;
+	background-color: #8000ff;
 	background-image: url("../img/unbalanced.png");
 	background-repeat: no-repeat;
 	background-position: center;
@@ -563,102 +659,4 @@ a.icon {
 	position: relative;
 	margin-left: 5px;
 	width: 50%;
-}
-#connect,
-#register {
-	left: 80%;
-	opacity: 0;
-	position: absolute;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	width: 400px;
-	z-index: 3;
-}
-#connect form,
-#register form {
-	background-color: white;
-	border-radius: 5px;
-}
-#connect fieldset,
-#register fieldset {
-	border: none;
-	padding: 40px 20px
-}
-#connect legend,
-#register legend,
-#connect label,
-#register label {
-	display: none;
-}
-#register label {
-  justify-content: center;
-  align-self: center;;
-  flex-direction: column;
-}
-#register select {
-	font-family: Comfortaa;
-}
-#connect .i-block,
-#register .i-block {
-	display: flex;
-	margin: 20px 0px;
-}
-#connect input,
-#register input {
-	background-color: transparent;
-	border: 1px solid #ddd;
-	border-right: none;
-	border-radius: 4px 0 0 4px;
-	font-family: Comfortaa;
-	font-weight: bold;
-	color: black;
-	flex: 1;
-	padding: 0.5em 2em;
-}
-#connect input::placeholder,
-#register input::placeholder {
-	color: #ddd;
-	font-family: Comfortaa;
-}
-#connect .i-block i,
-#register .i-block i {
-	background-color: transparent;
-	border: 1px solid #ddd;
-	border-radius: 0 4px 4px 0px;
-	color: #3385ff;
-	font-size: 25px;
-	font-weight: lighter;
-	width: 30px;
-	text-align: center;
-	padding: 0.5em 0.75em;
-}
-#connect .buttons,
-#register .buttons {
-	text-align: center;
-}
-#connect input[type=submit],
-#register input[type=submit] {
-	border: none;
-	color: #ddd;
-	font-family: Ionicons;
-	font-size: 40px;
-	margin: 0px 30px;
-	padding: 10px;
-	cursor: pointer;
-}
-#connect input[type=submit]:hover,
-#register input[type=submit]:hover {
-	color: #3385ff;
-}
-#connect .switch,
-#register .switch {
-	color: white;
-	cursor: pointer;
-	text-align: center;
-}
-#connect .switch:hover,
-#register .switch:hover {
-	color: #3385ff;
-	text-decoration: underline;
-	
 }

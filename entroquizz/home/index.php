@@ -5,7 +5,7 @@
 	<h2>Bienvenue sur EntroQuizz le meilleur site de quizz</h2>
 	<article>
 		<h3 class="solo"><i class="fa fa-user"></i> Solo</h3>
-		<div class="text-center">
+		<div class="solo-part">
     		<div class="mode">
     			<a href="../solo/simple.php">Simple</a>
     		</div>
@@ -20,7 +20,7 @@
 	
 	<article>
 		<h3 class="mutli"><i class="fa fa-users"></i> Multi</h3>
-		<div class="text-center">
+		<div class="multi-part">
     		<div class="mode">
     			<a href="../multi/countdown.php">Compte &agrave; rebours</a>
     		</div>

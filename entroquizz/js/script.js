@@ -1,4 +1,5 @@
 window.onload = function() {
+	/* --- SIGN IN / SIGN OUT --- */
 	// Call the display/hide function when clicking the span
 	$(document).ready(function() {
 		$(".switch > span").on("click", function() {
@@ -16,6 +17,7 @@ window.onload = function() {
 			opacity: '1'
 		});
 	});
+	// Hide the log in popup when clicking outside the popup
 	$('#frontground').click(function() {
 		$('#connect').animate({
 			left: '80%',
@@ -30,7 +32,7 @@ window.onload = function() {
 			popup_login();
 		}, 300);
 	});
-	
+	// Check if the passwords are the same after each input
 	$('input').keyup(function() {
 		var pass = $('input[name=r_password]').val();
 		var repass = $('input[name=r_repassword]').val();
@@ -47,7 +49,7 @@ window.onload = function() {
 	        $('.fa-unlock-alt').removeClass().addClass('fa fa-check-circle-o');
 	    }
 	});
-	
+	// Check if the passwords are the same when submiting the form
 	$('#register > form').submit(function(event) {
 		var pass = $('input[name=r_password]').val();
 		var repass = $('input[name=r_repassword]').val();
@@ -60,7 +62,9 @@ window.onload = function() {
 			return;
 		}
 	});
-
+	
+	/* --- ANIMATION for the navigation bar --- */
+	// Show/hide the solo panel
 	$("#flip-solo").click(function(){
 		if ($("#panel-solo").is(':visible')) {
 			$("#panel-solo li").animate({
@@ -74,6 +78,7 @@ window.onload = function() {
 			$("#panel-solo").slideToggle(300);
 		}
     });
+	// Show/hide the mutli panel
 	$("#flip-multi").click(function(){
 		if ($("#panel-multi").is(':visible')) {
 			$("#panel-multi li").animate({
@@ -87,6 +92,7 @@ window.onload = function() {
 			$("#panel-multi").slideToggle(300);
 		}
     });
+	// Show/hide the admin panel
 	$("#flip-admin").click(function(){
 		if ($("#panel-admin").is(':visible')) {
 			$("#panel-admin li").animate({
@@ -100,6 +106,7 @@ window.onload = function() {
 			$("#panel-admin").slideToggle(300);
 		}
     });
+	// Prevent a jump from the animation
 	 $('#panel-solo').each(function() {
 		 $height = $(this).height();
 		 $(this).css('height', $height);
@@ -115,13 +122,15 @@ window.onload = function() {
 		 $(this).css('height', $height);
 		 $(this).hide();
 		});
+	 /* --- QUIZZ --- */
+	 var questions = document.querySelectorAll("#quizz .question");
+	 var i=0;
 	 
-	var questions = document.querySelectorAll("#quizz .question");
-	var i=0;
-	
-	if (questions[0] !== undefined) {
+	 // Prevent the code from being executed on each page
+	 if (questions[0] !== undefined) {
 		questions[0].style.display = "block";
 		
+		// Switch the value and the name of the 'submit' button when answering a question
 		validate.addEventListener("click", function(e){
 			questions[i].style.display="none";
 			i++;
@@ -132,9 +141,11 @@ window.onload = function() {
 			$("#validate").css("display", "none");
 		});
 		$("#validate").css("display", "none");
-	}
+	 }
 }
-
+/**
+ * Show/Hide element according to the type of the questions in the create script. 
+ */
 function typeCheck(){
      if (document.getElementById('radioON').checked) {  //si vrai/faux coché
          document.getElementById('divON').style.display = 'block';
@@ -153,6 +164,9 @@ function typeCheck(){
      }
 }
 
+/**
+ * Change the value of the input checkbox if checked 
+ */
 function boxCheck(){
     if (document.getElementById('rep1').checked)  //si la box est cochée
          document.getElementById('rep1').value = 'true';
@@ -164,6 +178,9 @@ function boxCheck(){
          document.getElementById('rep4').value = 'true';
 }
 
+/**
+ * Switch between the log in and sign in
+ */
 function popup_login() {
     var y = document.getElementById('connect');
     var x = document.getElementById('register');
@@ -261,4 +278,17 @@ function check_empty_answer(type, inputs) {
 		break;
 	}
 	return true;
+}
+
+/**
+ * Show/hide the navigation bar panel
+ */
+function display_nav() {
+	var nav = $('#nav-panel');
+	
+	if (nav.css('display') == "block") {
+		nav.hide();
+	} else if (nav.css('display') == "none") {
+		nav.show();
+	}
 }

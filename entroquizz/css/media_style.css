@@ -1,0 +1,37 @@
+/* --- NAVIGATION BAR --- */
+@media only screen and (min-width: 1920px) {
+	header ul li#nav-buttton {
+		visibility: hidden;
+	}
+	nav {
+		display: block;
+	}
+}
+@media only screen and (max-width: 1919px) {
+	nav {
+		display: none;
+	}	
+}
+
+/* --- HOME PAGE --- */
+@media only screen and (min-width: 1920px) {
+	div.mode {
+		height: 500px;
+		margin: 10px 30px;
+		width: 500px;
+	}
+}
+@media only screen and (max-width: 1919px) {
+	div.mode {
+		height: 300px;
+		margin: 20px 50px;
+		width: 300px;
+	}
+}
+@media only screen and (max-width: 1919px) {
+	div.mode {
+		height: 300px;
+		margin: 20px 50px;
+		width: 300px;
+	}
+}
