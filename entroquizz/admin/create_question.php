@@ -106,6 +106,7 @@ if(isset($_GET['difficulte']) && isset($_GET['type_question'])) {
     if(isset($_GET['nom_theme']) && !empty($_GET['nom_theme'])) {
         $nom_theme = $_GET['nom_theme'];
         $sous_theme = $_GET['sous_theme'];
+        
         if (isset($_GET['sous_theme']) && ($_GET['sous_theme'] != "Choisissez...")) {
             // $id =$_GET['s_theme'];
             $query = "SELECT id_theme FROM Theme WHERE nom_theme = '$nom_theme' AND sous_theme='$sous_theme'";
@@ -146,6 +147,7 @@ if(isset($_GET['difficulte']) && isset($_GET['type_question'])) {
     $choix2 = pg_escape_string($_GET['choice2']);//choix reponse 2
     $choix3 = pg_escape_string($_GET['choice3']);//choix reponse 3
     $choix4 = pg_escape_string($_GET['choice4']);//choix reponse 4
+    
     if (isset($_GET['answer1']) && $_GET['answer1'] == "true")
         $reponse1 = pg_escape_string($_GET['answer1']);//reponse 1
         else $reponse1 =  pg_escape_string('false');

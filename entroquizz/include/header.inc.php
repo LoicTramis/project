@@ -125,7 +125,7 @@
 				    }
 				?>				
 				<li><a href="../account/"><i class="fa fa-cog"></i>Param&egrave;tres</a></li>
-				<li><a href="../account/"><i class="fa fa-info-circle"></i>&Agrave; propos</a></li>
+				<li><a href="../about/"><i class="fa fa-info-circle"></i>&Agrave; propos</a></li>
 			</ul>
 		</nav>
 		<div id="connect" style="display: none;">

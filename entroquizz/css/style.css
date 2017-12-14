@@ -12,7 +12,7 @@
 }
 @font-face {
 	font-family: 'font-awesome';
-	src: url("fonts/fontawesome-webfont.ttf");
+	src: url("../fonts/fontawesome-webfont.ttf");
 }
 
 body {
@@ -373,11 +373,11 @@ footer {
 #quizz fieldset {
 	border: none;
 }
-#quizz .question span {
+#quizz .question .wording {
 	background-color: #cce0ff;
 	border: 1px solid;
-	border-color: #cce0ff;
-	box-shadow: 0px 0px 10px #3366ff;
+	border-color: #0066ff;
+	border-radius: 5px;
 	display: block;
 	font-size: 18pt;
 	left: 50%;
@@ -387,22 +387,75 @@ footer {
 	transform: translate(-50%);
 	width: 80%;
 }
+#quizz #on label {
+	background-color: #ffcc99;
+	border: 1px solid #ff8000;
+	border-radius: 5px;
+	color: black;
+	display: flex;
+	font-size: 20pt;
+	font-weight: bold;
+	flex-direction: row;
+	justify-content: center;
+	margin: 50px auto;
+	padding: 50px 0px;
+	width: 500px;
+}
+#quizz #on label:hover input ~ .checkmark {
+    background-color: #f2c3a6;
+    border: 1px solid #eee;
+}
+#quizz #on label input:checked ~ .checkmark {
+    background-color: #cce0ff;
+    border: 1px solid #0066ff;
+}
+#quizz #on label .checkmark:after {
+  content: "";
+  position: relative;
+  display: none;
+}
+#quizz #on label input:checked ~ .checkmark:after {
+  display: block;
+}
+#quizz #on label .checkmark:after {
+  top: 7px;
+  left: 7px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #0066ff;
+}
+.checkmark {
+    background-color: #f2c3a6;
+    border: 1px solid #df6920;
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    margin-right: 10px;
+    background-color: #eee;
+    border-radius: 50%;
+}
 #quizz #cm label {
 	background-color: #ffcc99;
-	border: 1px solid;
-	border-color: #ffcc99;
+	border: 1px solid #ff8000;
 	border-radius: 5px;
-	box-shadow: 0px 0px 5px #ffa64d;
-	font-size: 20pt;
+	cursor: pointer;
 	display: inline-block;
+	font-size: 20pt;
 	margin: 20px;
+	position: relative;
 	padding: 60px;
+    user-select: none;
+	width: 30%;
 }
 #quizz #txt label {
 	margin: 20px;
 }
 #quizz .question input[type=radio] {
-	display: inline-block;
+    position: absolute;
+    opacity: 0;
 }
 #quizz .question .wholeline {
 	text-align: center;
@@ -411,10 +464,8 @@ footer {
 	display: inline-block;
 }
 #quizz .question input[type=text] {
-	border: 1px solid;
-	border-color: #a6a6a6;
+	border: 1px solid #ff8000;
 	border-radius: 5px;
-	box-shadow: 0px 0px 5px #a6a6a6; 
 	display: block;
 	font-family: Comfortaa;
 	font-size: 18pt;
@@ -424,10 +475,53 @@ footer {
 	transform: translate(-50%);
 	width: 70%;
 }
-#quizz .question input[type=text]::placeholder {
+#quizz input[type=text]::placeholder {
 	color: #b3b3b3;
 	font-family: Comfortaa;
 	font-size: 14pt;
+}
+
+#confirm,
+#validate {
+	background-color: transparent;
+	border: none;
+	color: #0066ff;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	font-family: font-awesome;
+	font-size: 40pt;
+	margin: 25px auto;
+	width: 50px;
+	
+}
+#confirm.wait:before {
+	content: '\f096';
+	font-family: font-awesome;
+}
+#confirm.good:before {
+	content: '\f046';
+	color: green;
+	font-family: font-awesome;
+}
+#confirm.bad:before {
+	content: '\f00d';
+	color: red;
+	font-family: font-awesome;
+}
+#confirm:hover {
+	cursor: pointer;
+}
+#confirm:disabled {
+	cursor: not-allowed;
+}
+#confirm.wait:hover:before,
+#validate:hover {
+	color: #1aa3ff;
+}
+#validate:disabled {
+	color: grey;
+	cursor: not-allowed;
 }
 
 /* --- TAG --- */
@@ -455,22 +549,45 @@ i {
 .solo-part,
 .multi-part {
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	justify-content: center;
 }
 div.mode a {
 	border-radius: 5px;
 	box-shadow: 0px 0px 10px black;
+	color: white;
 	display: block;
-	font-size: large;
+	font-weight: bold;
 	height: 100%;
+	line-height: 80px;
 	position: relative;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0px 0px 10px black;
     transition: 0.3s;
-	width: 100%;
 }
 div.mode a:hover {
-	color: black;
+	color: #0066ff;
     opacity: 0.5;
+}
+.simple a {
+    background-color: #ffbf00;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.random a {
+    background-color: #ff9900;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.timer a {
+    background-color: #cc5200;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.countdown a {
+    background-color: #cc33ff;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 .death a {
     background-color: #9966ff;
@@ -483,6 +600,10 @@ div.mode a:hover {
 	background-image: url("../img/unbalanced.png");
 	background-repeat: no-repeat;
 	background-position: center;
+}
+.expansion a {
+    background-color: #5c5cd6;
+	
 }
 .dragonball img {
 	display: flex;

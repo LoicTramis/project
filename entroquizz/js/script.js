@@ -125,6 +125,11 @@ window.onload = function() {
 	 /* --- QUIZZ --- */
 	 var questions = document.querySelectorAll("#quizz .question");
 	 var i=0;
+	 var total = questions.length;
+	 
+	 $("#finish").css("display", "none");
+	 $("#confirm").prop("disabled", false);
+	 $("#validate").prop("disabled", true);
 	 
 	 // Prevent the code from being executed on each page
 	 if (questions[0] !== undefined) {
@@ -134,13 +139,28 @@ window.onload = function() {
 		validate.addEventListener("click", function(e){
 			questions[i].style.display="none";
 			i++;
-			if(i<questions.length){
+			
+			if(i < total){
 				questions[i].style.display="block";
 			}
-			$("#confirm").css("display", "block");
-			$("#validate").css("display", "none");
+
+			$("label > input").attr("disabled", false); // enable the form
+			$("#confirm").removeClass().addClass("wait"); // reset the class
+			$("#confirm").css("display", "block"); // display the confirm button
+			$("#confirm").prop("disabled", false); // enable the confirm button
+			$("#validate").prop("disabled", true); // disable the validate button
+			
+			// display finish button at the end of the quizz
+			if (i == total) {
+				$("#finish").css("display", "block");
+				$("#confirm").css("display", "none");
+				$("#validate").css("display", "none");
+			} else {
+				$("#finish").css("display", "none");
+			}
 		});
-		$("#validate").css("display", "none");
+		
+		
 	 }
 }
 /**
@@ -239,10 +259,13 @@ function check_empty_answer(type, inputs) {
 	case 'on':
 		var radio0 = document.getElementById(inputs[0].getAttribute('id'));
 		var radio1 = document.getElementById(inputs[1].getAttribute('id'));
-		
+		var ident = inputs[0].getAttribute('id');
+		var res = ident.split("-");
+		var idd = res[1];
+
 	    if (radio0.checked == false && radio1.checked == false) {
-	    	document.getElementById("message").classList.add("error");
-	    	document.getElementById("message").innerHTML = "Dans le pire des cas 1 chance sur 2";
+	    	document.getElementById("correction"+idd).classList.add("error");
+	    	document.getElementById("correction"+idd).innerHTML = "Dans le pire des cas 1 chance sur 2";
 	    	
 	        return false;
 	    }
@@ -252,23 +275,29 @@ function check_empty_answer(type, inputs) {
 		var checkbox1 = document.getElementById(inputs[1].getAttribute('id'));
 		var checkbox2 = document.getElementById(inputs[2].getAttribute('id'));
 		var checkbox3 = document.getElementById(inputs[3].getAttribute('id'));
-		
+		var ident = inputs[0].getAttribute('id');
+		var res = ident.split("-");
+		var idd = res[1];
+
 	    if (checkbox0.checked == false
 	    		&& checkbox1.checked == false
 	    		&& checkbox2.checked == false
 	    		&& checkbox3.checked == false) {
-	    	document.getElementById("message").classList.add("error");
-	    	document.getElementById("message").innerHTML = "N'ayez pas peur cocher au moins 1 case.";
+	    	document.getElementById("correction"+idd).classList.add("error");
+	    	document.getElementById("correction"+idd).innerHTML = "N'ayez pas peur cocher au moins 1 case.";
 	    	
 	        return false;
 	    }
 		break;
 	case 'txt':
 		var text = document.getElementById(inputs[0].getAttribute('id'));
+		var ident = inputs[0].getAttribute('id');
+		var res = ident.split("-");
+		var idd = res[1];
 		
 	    if (text.value == "") {
-	    	document.getElementById("message").classList.add("error");
-	    	document.getElementById("message").innerHTML = "Voyons ! Tentez votre chance !";
+	    	document.getElementById("correction"+idd).classList.add("error");
+	    	document.getElementById("correction"+idd).innerHTML = "Voyons ! Tentez votre chance !";
 	    	
 	        return false;
 	    }

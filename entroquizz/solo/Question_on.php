@@ -1,14 +1,37 @@
 <?php
 require_once 'Question.php';
 
+/**
+ * Inheritance of the Question class. Question open type.
+ * 
+ * @version PHP 7.1
+ * @author Beno&icirc;t
+ * @author Lo&iuml;c
+ *
+ */
 class Question_on extends Question {
-	private $_reponse;
+    /**
+     * 
+     * @var string - could be on a boolean form
+     */
+    private $_reponse;
 
+    /**
+	 * Useful for creating an object.
+	 * 
+     * @param array $donnees_question
+     * @param array $donnees_question_on
+     */
     public function __construct(array $donnees_question, array $donnees_question_on) {
 			parent::__construct($donnees_question);
 			$this->hydrate($donnees_question_on);
 		}
-		//CETTE FONCTION INITIALISE UN OBJET
+		
+	/**
+	 * 
+	 * {@inheritDoc}
+	 * @see Question::hydrate()
+	 */
 	public function hydrate(array $donnees)	{
 	  foreach ($donnees as $key => $value) {
 		// On récupère le nom du setter correspondant à l'attribut.
@@ -20,21 +43,26 @@ class Question_on extends Question {
 		}
 	  }	
 	}
-
+    /**
+     * Get the answer
+     * 
+     * @return string - the answers
+     */
 	public function reponse() {
 	    return $this->_reponse;
 	}
-
+    
+	/**
+	 * Set the answer
+	 * 
+	 * @param string $reponse - the answer
+	 */
 	public function setReponse($reponse) {
-
-	// On vérifie qu'il s'agit bien d'une chaîne de caractères.
-	// Dont la longueur est inférieure à 30 caractères.
-	if (is_string($reponse) && strlen($reponse) <= 30) {
-		  $this->_reponse = $reponse;
-		}
+	    // Check if this a string
+	    // length < 30 characters
+	    if (is_string($reponse) && strlen($reponse) <= 30) {
+	        $this->_reponse = $reponse;
+	    }
 	}
-
-
-
 }
 ?>

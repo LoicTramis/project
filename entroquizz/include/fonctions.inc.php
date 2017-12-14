@@ -181,6 +181,12 @@
         return $table;
     }
     
+    /**
+     * Display the rank of 1 user.
+     * 
+     * @param string $username
+     * @return number - the rank
+     */
     function get_solo_ranking($username) {
         include '../include/postgres.conf.inc.php';
         
@@ -290,12 +296,19 @@
         return $final_exp;
         
     }
-    
+
+    /**
+     * Update the number of quizz done by the user
+     * 
+     * @param string $difficulte - "facile", "moyen" or "difficile"
+     * @param string $username - (Ex: "Entropy")
+     */
     function update_quizz($difficulte, $username) {
         include '../include/postgres.conf.inc.php';
         
         $query = "UPDATE Utilisateur SET nb_quizz_".$difficulte." = nb_quizz_".$difficulte." + 1 WHERE login = '".$username."'";
         $total_query = "UPDATE Utilisateur SET nombre_quizz = nb_quizz_facile + nb_quizz_moyen + nb_quizz_difficile WHERE login = '".$username."'";
+        
         $connection = pg_connect($confi);
         $result = pg_query($query);
         $total_result = pg_query($total_query);
@@ -303,7 +316,6 @@
         if (!$result || $total_result) {
             echo pg_last_error();
         }
-        
         pg_close($connection);
     }
     
@@ -701,6 +713,7 @@
     
     function upload_bd($req){  //***INSERT OU UPDATE DES DONNES DANS LA BD
         include '../include/postgres.conf.inc.php';
+        
         $dbconn = pg_connect($confi);
         pg_query($dbconn,$req);
         pg_close($dbconn);
@@ -743,31 +756,34 @@
             $type_question=$question->type_question();
             switch($type_question){
                 case "question_on":
-                    $html.='    <div id="on" class="question" style="display:none;">
+                    $html.='    <div id="on" class="question on" style="display:none;">
                                     <p>Question '.($i+1).'/'.$max.' :</p>
                                     <p>Th&egrave;me : '.$theme.'</p>
                                     <p>Difficult&eacute; : '.$difficulte.'</p>
 
-                                    <span>'.$question->text_question().'</span>
+                                    <span class="wording">'.$question->text_question().'</span>
 
                                     <label for="vrai-'.$question->id_question().'">
                                         <input type="radio" class="q-on" id="vrai-'.$question->id_question().'" name="vf-'.$question->id_question().'" value="true">
-                                        Vrai
+                                        <span class="checkmark"></span>
+                                        VRAI
                                     </label>
                                         
                                     <label for="faux-'.$question->id_question().'">
                                         <input type="radio" class="q-on" id="faux-'.$question->id_question().'" name="vf-'.$question->id_question().'" value="false">
-                                        Faux
+                                        <span class="checkmark"></span>
+                                        FAUX
                                     </label>
+                                    <p class="hidden" id="correction'.$question->id_question().'"></p>
                                 </div>';
                     break;
                 case "question_cm":
-                    $html.='    <div id="cm" class="question" style="display:none;">
+                    $html.='    <div id="cm" class="question cm" style="display:none;">
                                     <p>Question '.($i+1).'/'.$max.' :</p>
                                     <p>Th&egrave;me : '.$theme.'</p>
                                     <p>Difficult&eacute; : '.$difficulte.'</p>
 
-                                    <span>'.$question->text_question().'</span>
+                                    <span class="wording">'.$question->text_question().'</span>
 
                                     <div class="wholeline">
                                         <label for="rep1-'.$question->id_question().'">
@@ -791,20 +807,22 @@
                                             '.$question->choix_4().'
                                         </label>
                                     </div>
+                                    <p class="hidden" id="correction'.$question->id_question().'"></p>
                                 </div>';
                     break;
                     
                 case "question_texte":
-                    $html.='    <div id="txt" class="question" style="display:none;">
+                    $html.='    <div id="txt" class="question txt" style="display:none;">
                                     <p>Question '.($i+1).'/'.$max.' :</p>
                                     <p>Th&egrave;me : '.$theme.'</p>
                                     <p>Difficult&eacute; : '.$difficulte.'</p>
 
-                                    <span>'.$question->text_question().'</span>
+                                    <span class="wording">'.$question->text_question().'</span>
 
                                     <label for="txt-'.$question->id_question().'">
                                         <input type="text" class="q-txt" id="txt-'.$question->id_question().'" name="txt-'.$question->id_question().'" placeholder="Ex: Rouge - 12:00 - 50 000,25">
                                     </label>
+                                    <p class="hidden" id="correction'.$question->id_question().'"></p>
                                 </div>';
                     break;
             }
@@ -812,9 +830,9 @@
         
         $html .= "  <input type=\"hidden\" name=\"max\" value=\"".$max."\"/>
                     <input type=\"hidden\" name=\"difficulte\" value=\"".$difficulte."\"/>
-                    <input type=\"button\" id=\"confirm\" onclick=\"getAnswer()\" value=\"Confirmer\" />
-                    <input type=\"button\" id=\"validate\" value=\"Suivant\"/>
-                    <input type=\"submit\" value=\"Terminer\">
+                    <a id=\"confirm\" class=\"wait\" onclick=\"getAnswer()\"></a>
+                    <input type=\"button\" id=\"validate\" value=\"&#xf18e;\" disabled/>
+                    <input type=\"submit\" id=\"finish\" value=\"Terminer\">
                 </fieldset>
 	       </form>
  	  </div>";

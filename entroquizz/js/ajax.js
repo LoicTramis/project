@@ -30,11 +30,25 @@ function getEmail(email) {
 
 function getAnswer() {
 	// get the type of the question (on-cm-txt)
-	var type = $('.question:visible').attr('id');
+	//var type = $('.question:visible').attr('class').split(' ')[1];
+	var questions= document.querySelectorAll(" #quizz .question ");
+	var j = 0;
+	var stop=false;
+	var current_question;
+
+	while(j<questions.length){
+		if (questions[j].style.display=="block") {
+			current_question=questions[j];
+			break;
+		}
+		j++;
+	}
+	var type = current_question.classList[1];
 	var input, i, user, id;
 	var ans = {};
 	
-	input = document.getElementById(type).getElementsByClassName("q-" + type);
+	input = current_question.getElementsByClassName("q-" + type);
+	id = getID(input[0]);
 	
 	if (check_empty_answer(type, input)) {
 		switch (type) {
@@ -45,7 +59,7 @@ function getAnswer() {
 				if (input[i].checked == true) {
 					user = input[i].value;
 					
-					id = getID(input[i]);
+					//id = getID(input[i]);
 					
 					if (window.XMLHttpRequest) {
 						xmlhttp = new XMLHttpRequest();
@@ -54,7 +68,7 @@ function getAnswer() {
 					}
 					xmlhttp.onreadystatechange = function() {
 						if (this.readyState == 4 && this.status == 200) {
-							document.getElementById("message").innerHTML = this.responseText;
+							$("#confirm").removeClass().addClass(""+this.responseText+"");
 						}
 					};
 					xmlhttp.open("GET","../asp/getAnswerON.php?idon=" + id + "&user=" + user,true);
@@ -72,7 +86,7 @@ function getAnswer() {
 				} else {
 					ans[i] = 'false';
 				}
-				id = getID(input[i])
+				//id = getID(input[i])
 		
 			}
 				
@@ -83,7 +97,7 @@ function getAnswer() {
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("message").innerHTML = this.responseText;
+					$("#confirm").removeClass().addClass(""+this.responseText+"");
 				}
 			};
 			xmlhttp.open("GET","../asp/getAnswerCM.php?idcm=" + id 
@@ -96,7 +110,7 @@ function getAnswer() {
 		// TYPE TEXT
 		case "txt":
 			text = input[0].value;
-			id = getID(input[0]);
+			//id = getID(input[0]);
 			
 			if (window.XMLHttpRequest) {
 				xmlhttp = new XMLHttpRequest();
@@ -105,7 +119,7 @@ function getAnswer() {
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					document.getElementById("message").innerHTML = this.responseText;
+					$("#confirm").removeClass().addClass(""+this.responseText+"");
 				}
 			};
 			xmlhttp.open("GET","../asp/getAnswerTXT.php?idtxt=" + id + "&text=" + text,true);
@@ -115,14 +129,18 @@ function getAnswer() {
 		default:
 			break;
 		}
-		$("#validate").css("display", "block");
-		$("#confirm").css("display", "none");
+		$("#confirm").prop("disabled", true);
+		$("#validate").prop("disabled", false);
+		
+		$("label > input").attr("disabled", true);
 	}
 }
 
 function getJsonStats() {
     var obj, dbParam, xmlhttp, myObj, x, txt = "";
-    obj = { "table":"Utilisateur"};
+    obj = {
+    		"table":"Utilisateur"
+	};
     dbParam = JSON.stringify(obj);
     
     xmlhttp = new XMLHttpRequest();
@@ -179,4 +197,24 @@ function getXMLScale() {
 	};
 	xhr.open("GET", "../xml/scale.xml", true);
 	xhr.send();
+}
+
+//Exécute un appel AJAX GET
+//Prend en paramètres l'URL cible et la fonction callback appelée en cas de succès
+// Pour l'API meteo
+function ajaxGet(url, callback) {
+ var req = new XMLHttpRequest();
+ req.open("GET", url);
+ req.addEventListener("load", function () {
+     if (req.status >= 200 && req.status < 400) {
+         // Appelle la fonction callback en lui passant la réponse de la requête
+         callback(req.responseText);
+     } else {
+         console.error(req.status + " " + req.statusText + " " + url);
+     }
+ });
+ req.addEventListener("error", function () {
+     console.error("Erreur réseau avec l'URL " + url);
+ });
+ req.send(null);
 }

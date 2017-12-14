@@ -26,8 +26,6 @@ spl_autoload_register('chargerClasse'); // On enregistre la fonction en autoload
 		      echo simple_quizz_form();
 		  }
 		?>
-		<p id="re"></p>
-		<p id="message"></p>
 	</article>
 </section>
 
