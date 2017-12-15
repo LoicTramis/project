@@ -45,11 +45,14 @@
     	<title>Entroquizz - Version Beta</title>
     	<meta charset="utf-8">
     	<link href="../css/style.css" rel="stylesheet" type="text/css">
-    	<link href="../css/media_	style.css" rel="stylesheet" type="text/css">
+    	<link href="../css/media_style.css" rel="stylesheet" type="text/css">
     	<link href="../css/font-awesome.css" rel="stylesheet" type="text/css">
     	<link href="../css/ionicons.css" rel="stylesheet" type="text/css">
 		<link href="../img/favicon.png" rel="shortcut icon" type="image/png">
     	<script src="../js/jquery-3.2.1.js"></script>
+    	<script type="text/javascript" src="../chat/chatscript.js"></script>
+    	<link rel="stylesheet" type="text/css" href="../chat/stylechat.css" />
+    	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     	<script src="../js/script.js"></script>
     	<script src="../js/ajax.js"></script>
     	<script src="https://www.google.com/recaptcha/api.js"></script> <!-- reCAPTCHA -->
@@ -124,6 +127,7 @@
 				<?php
 				    }
 				?>				
+				<li><a href="../chat/"><i class="fa fa-cog"></i>Chat</a></li>				
 				<li><a href="../account/"><i class="fa fa-cog"></i>Param&egrave;tres</a></li>
 				<li><a href="../about/"><i class="fa fa-info-circle"></i>&Agrave; propos</a></li>
 			</ul>
@@ -201,8 +205,9 @@
 					
                     <!-- For loictramis.esy.es -->
 <!-- 					<div class="g-recaptcha" data-sitekey="6LfwnToUAAAAAKM27KltUD-fXUgFjNxPbG6s2vk8"></div> -->
-                    <!-- For college server -->
-					<div class="g-recaptcha" data-sitekey="6LeEnjoUAAAAAGRQtzVI5Fsdjf_mwYkRXu1ja13Y"></div>
+                    <!-- For college server dev.etu & 10.40.128.22-->
+<!-- 					<div class="g-recaptcha" data-sitekey="6LeEnjoUAAAAAGRQtzVI5Fsdjf_mwYkRXu1ja13Y"></div> -->
+					<div class="g-recaptcha" data-sitekey="6LclLT0UAAAAAO-RQjmGJ7BOI_YnvhP86Zx6my9f"></div>
 					
 <!-- 					For entoquizz.alwaysdata.net -->
 <!--                    <div class="g-recaptcha" data-sitekey="6Ld6nTwUAAAAAJCr3kJC84LF1ClVMOViRCVIZPMZ"></div> -->

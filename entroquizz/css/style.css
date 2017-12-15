@@ -386,6 +386,7 @@ footer {
 	text-align: center;
 	transform: translate(-50%);
 	width: 80%;
+	overflow: wrap;
 }
 #quizz #on label {
 	background-color: #ffcc99;
